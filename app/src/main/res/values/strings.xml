@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">SuperHeroCharacterGenerator</string>
+    <string name="roll_a_character">Roll a Character!</string>
+    <string name="origin">ORIGIN:</string>
+    <string name="physical_form">PHYSICAL FORM:</string>
+    <string name="subform">SUBFORM:</string>
+    <string name="powers">POWERS:</string>
+    <string name="character_name">CHARACTER NAME:</string>
 </resources>

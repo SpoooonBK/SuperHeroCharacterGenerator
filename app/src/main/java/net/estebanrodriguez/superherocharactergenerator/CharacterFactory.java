@@ -46,6 +46,9 @@ public class CharacterFactory {
         //set form
         character.setForm(databaseAccess.getForm(DieRoller.roll(100)));
 
+        //set origin
+        character.setOrigin(databaseAccess.getOrigin(DieRoller.roll(100)));
+
         return character;
     }
 

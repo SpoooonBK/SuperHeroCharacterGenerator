@@ -10,6 +10,7 @@ import java.util.List;
  */
 public class PoweredCharacter extends Character {
     List<Power> mPowers;
+    Origin mOrigin;
 
     int mInitialAmountofPowers;
     int mCurrentAmountofPowers;
@@ -48,6 +49,14 @@ public class PoweredCharacter extends Character {
 
     public int getInitialAmountofPowers() {
         return mInitialAmountofPowers;
+    }
+
+    public Origin getOrigin() {
+        return mOrigin;
+    }
+
+    public void setOrigin(Origin origin) {
+        mOrigin = origin;
     }
 
     public void setInitialAmountofPowers(int initialAmountofPowers) {

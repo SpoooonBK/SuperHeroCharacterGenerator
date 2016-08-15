@@ -7,7 +7,8 @@ public class Origin {
     private String mOrigin;
     private String mOriginDescription;
 
-    public Origin(int d100) {
+    public Origin(String origin) {
+        mOrigin = origin;
     }
 
     public String getOrigin() {

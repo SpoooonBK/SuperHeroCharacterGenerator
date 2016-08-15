@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import net.estebanrodriguez.superherocharactergenerator.DieRoller;
+import net.estebanrodriguez.superherocharactergenerator.character_model.Origin;
 import net.estebanrodriguez.superherocharactergenerator.character_model.PhysicalForm;
 import net.estebanrodriguez.superherocharactergenerator.character_model.Power;
 
@@ -102,6 +103,16 @@ public class DatabaseAccess {
 
         cursor.close();
         return new PhysicalForm(form, subform);
+    }
+
+    public Origin getOrigin(int roll) {
+        String query = "SELECT origin FROM " + TABLE_ORIGIN+
+                " WHERE lowRoll <= " + roll + " AND highRoll >= " + roll;
+
+        Cursor cursor = database.rawQuery(query, null);
+        String origin = cursor.getString(cursor.getColumnIndex("origin"));
+        cursor.close();
+        return new Origin(origin);
     }
 
     public List<Integer> getAmounts(int roll) {
