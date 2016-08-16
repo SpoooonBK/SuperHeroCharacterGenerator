@@ -153,7 +153,14 @@ public class DatabaseAccess {
         String query = "SELECT powerClass, powerTableName FROM " +TABLE_POWER_CLASS +
                 " WHERE lowRoll <= " + roll + " AND highRoll >= " + roll;
 
+        Log.d("HERO", "rollPowerClass: "+query);
         Cursor cursor = database.rawQuery(query, null);
+
+        for(String s: cursor.getColumnNames()){
+            Log.d("HERO",s);
+        }
+
+
         cursor.moveToFirst();
 
         map.put("powerClass",cursor.getString(cursor.getColumnIndex("powerClass")));
@@ -171,16 +178,17 @@ public class DatabaseAccess {
                 " WHERE lowRoll <= " + roll + " AND highRoll >= " + roll;
         Cursor cursor = database.rawQuery(query, null);
 
-        Log.d("HERO", query);
+        Log.d("HERO", "rollPower:" + query);
 
 
         for(String s: cursor.getColumnNames()){
-            Log.d("HERO",s );
+            Log.d("HERO","rollPower: "+ s );
         }
         cursor.moveToFirst();
         String powerName = cursor.getString(cursor.getColumnIndex("power"));
-        String powerCode = cursor.getString(cursor.getColumnIndex("powerCode") +
-                cursor.getInt(cursor.getColumnIndex("id_power")));
+        String code = cursor.getString(cursor.getColumnIndex("powerCode"));
+        int powerid = cursor.getInt(cursor.getColumnIndex("id_power"));
+        String powerCode = code + powerid;
         cursor.close();
 
         return new Power(powerClass, powerName, powerCode);
