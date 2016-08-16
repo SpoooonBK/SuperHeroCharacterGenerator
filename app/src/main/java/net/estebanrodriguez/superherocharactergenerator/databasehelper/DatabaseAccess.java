@@ -7,6 +7,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import net.estebanrodriguez.superherocharactergenerator.DieRoller;
 import net.estebanrodriguez.superherocharactergenerator.character_model.Origin;
@@ -94,10 +95,13 @@ public class DatabaseAccess {
      * @return a List of quotes
      */
     public PhysicalForm getForm(int roll) {
+        Log.d ("HERO", "Roll: " + roll);
         String query = "SELECT form, subForm FROM " + TABLE_PHYSICAL_FORM +
                 " WHERE lowRoll <= " + roll + " AND highRoll >= " + roll;
 
+
         Cursor cursor = database.rawQuery(query, null);
+        cursor.moveToFirst();
         String form = cursor.getString(cursor.getColumnIndex("form"));
         String subform = cursor.getString(cursor.getColumnIndex("subForm"));
 
@@ -110,6 +114,7 @@ public class DatabaseAccess {
                 " WHERE lowRoll <= " + roll + " AND highRoll >= " + roll;
 
         Cursor cursor = database.rawQuery(query, null);
+        cursor.moveToFirst();
         String origin = cursor.getString(cursor.getColumnIndex("origin"));
         cursor.close();
         return new Origin(origin);
@@ -121,12 +126,22 @@ public class DatabaseAccess {
                 "talentsMaxAmount, contactsInitialAmount, contactsMaxAmount " +
                 "FROM " + TABLE_NUMBER_OF_POWERS +" WHERE lowRoll <=" + roll +
                 " AND highRoll >= " + roll;
+
+        Log.d ("HER0", "QUERY: "+query);
         Cursor cursor = database.rawQuery(query, null);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()){
-            list.add(cursor.getInt(0));
-            cursor.moveToNext();
+
+        String[] colNames = cursor.getColumnNames();
+        for(String s: colNames){
+            Log.d("HERO",s);
         }
+
+        cursor.moveToFirst();
+        list.add(cursor.getInt(cursor.getColumnIndex("powersInitialAmount")));
+        list.add(cursor.getInt(cursor.getColumnIndex("powersMaxAmount")));
+        list.add(cursor.getInt(cursor.getColumnIndex("talentsInitialAmount")));
+        list.add(cursor.getInt(cursor.getColumnIndex("talentsMaxAmount")));
+        list.add(cursor.getInt(cursor.getColumnIndex("contactsInitialAmount")));
+        list.add(cursor.getInt(cursor.getColumnIndex("contactsMaxAmount")));
         cursor.close();
         return list;
     }
@@ -138,6 +153,7 @@ public class DatabaseAccess {
                 "WHERE lowRoll <= " + roll + " AND highRoll >= " + roll;
 
         Cursor cursor = database.rawQuery(powerClassquery, null);
+        cursor.moveToFirst();
         String powerClass = cursor.getString(cursor.getColumnIndex("powerClass"));
         String powerTableName = cursor.getString(cursor.getColumnIndex("powerTableName"));
         cursor.close();
@@ -147,6 +163,8 @@ public class DatabaseAccess {
         String powerQuery = "SELECT id_power, power, powerCode FROM " + powerTableName +
                 "WHERE lowRoll <= " + powerRoll + " AND highRoll >= " + powerRoll;
         Cursor powerCursor = database.rawQuery(powerClassquery, null);
+
+        cursor.moveToFirst();
         String powerName = powerCursor.getString(powerCursor.getColumnIndex("power"));
         String powerCode = powerCursor.getString(powerCursor.getColumnIndex("powerCode") +
                 powerCursor.getInt(powerCursor.getColumnIndex("id_power")));

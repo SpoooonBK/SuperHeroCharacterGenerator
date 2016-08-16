@@ -1,6 +1,7 @@
 package net.estebanrodriguez.superherocharactergenerator;
 
 import android.content.Context;
+import android.util.Log;
 
 import net.estebanrodriguez.superherocharactergenerator.character_model.Character;
 import net.estebanrodriguez.superherocharactergenerator.character_model.Power;
@@ -32,6 +33,8 @@ public class CharacterFactory {
         PoweredCharacter character = new PoweredCharacter();
 
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(mContext);
+        databaseAccess.open();
+        Log.d("HERO","databaseAccess created");
 
         //set initial and max amounts
         character.setAmounts(databaseAccess.getAmounts(DieRoller.roll(100)));
@@ -48,7 +51,7 @@ public class CharacterFactory {
 
         //set origin
         character.setOrigin(databaseAccess.getOrigin(DieRoller.roll(100)));
-
+        databaseAccess.close();
         return character;
     }
 
