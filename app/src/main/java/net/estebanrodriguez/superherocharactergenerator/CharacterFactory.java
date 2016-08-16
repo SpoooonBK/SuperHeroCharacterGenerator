@@ -36,6 +36,12 @@ public class CharacterFactory {
         databaseAccess.open();
         Log.d("HERO","databaseAccess created");
 
+        //set form
+        character.setForm(databaseAccess.getForm(DieRoller.roll(100)));
+
+        //set origin
+        character.setOrigin(databaseAccess.getOrigin(DieRoller.roll(100)));
+
         //set initial and max amounts
         character.setAmounts(databaseAccess.getAmounts(DieRoller.roll(100)));
 
@@ -46,11 +52,6 @@ public class CharacterFactory {
         }
         character.setPowers(powers);
 
-        //set form
-        character.setForm(databaseAccess.getForm(DieRoller.roll(100)));
-
-        //set origin
-        character.setOrigin(databaseAccess.getOrigin(DieRoller.roll(100)));
         databaseAccess.close();
         return character;
     }

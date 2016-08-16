@@ -150,7 +150,7 @@ public class DatabaseAccess {
 
         List<String> list = new ArrayList<>();
         String powerClassquery = "SELECT powerClass, powerTableName FROM " +TABLE_POWER_CLASS +
-                "WHERE lowRoll <= " + roll + " AND highRoll >= " + roll;
+                " WHERE lowRoll <= " + roll + " AND highRoll >= " + roll;
 
         Cursor cursor = database.rawQuery(powerClassquery, null);
         cursor.moveToFirst();
@@ -161,10 +161,12 @@ public class DatabaseAccess {
         int powerRoll = DieRoller.roll(100);
 
         String powerQuery = "SELECT id_power, power, powerCode FROM " + powerTableName +
-                "WHERE lowRoll <= " + powerRoll + " AND highRoll >= " + powerRoll;
+                " WHERE lowRoll <= " + powerRoll + " AND highRoll >= " + powerRoll;
         Cursor powerCursor = database.rawQuery(powerClassquery, null);
 
-        cursor.moveToFirst();
+        Log.d("HERO", powerQuery);
+
+        powerCursor.moveToFirst();
         String powerName = powerCursor.getString(powerCursor.getColumnIndex("power"));
         String powerCode = powerCursor.getString(powerCursor.getColumnIndex("powerCode") +
                 powerCursor.getInt(powerCursor.getColumnIndex("id_power")));
