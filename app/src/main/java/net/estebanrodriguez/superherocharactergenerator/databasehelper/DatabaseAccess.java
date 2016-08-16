@@ -16,8 +16,9 @@ import net.estebanrodriguez.superherocharactergenerator.character_model.Power;
 
 import java.text.ParsePosition;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 
 public class DatabaseAccess {
@@ -94,7 +95,7 @@ public class DatabaseAccess {
      *
      * @return a List of quotes
      */
-    public PhysicalForm getForm(int roll) {
+    public PhysicalForm rollForm(int roll) {
         Log.d ("HERO", "Roll: " + roll);
         String query = "SELECT form, subForm FROM " + TABLE_PHYSICAL_FORM +
                 " WHERE lowRoll <= " + roll + " AND highRoll >= " + roll;
@@ -109,7 +110,7 @@ public class DatabaseAccess {
         return new PhysicalForm(form, subform);
     }
 
-    public Origin getOrigin(int roll) {
+    public Origin rollOrigin(int roll) {
         String query = "SELECT origin FROM " + TABLE_ORIGIN+
                 " WHERE lowRoll <= " + roll + " AND highRoll >= " + roll;
 
@@ -120,7 +121,7 @@ public class DatabaseAccess {
         return new Origin(origin);
     }
 
-    public List<Integer> getAmounts(int roll) {
+    public List<Integer> rollAmounts(int roll) {
         List<Integer> list = new ArrayList<>();
         String query = "SELECT powersInitialAmount, powersMaxAmount,  talentsInitialAmount, " +
                 "talentsMaxAmount, contactsInitialAmount, contactsMaxAmount " +
@@ -146,31 +147,41 @@ public class DatabaseAccess {
         return list;
     }
 
-    public Power getPower(int roll) {
+    public Map<String, String> rollPowerClass(int roll){
 
-        List<String> list = new ArrayList<>();
-        String powerClassquery = "SELECT powerClass, powerTableName FROM " +TABLE_POWER_CLASS +
+        Map<String, String> map = new HashMap<>();
+        String query = "SELECT powerClass, powerTableName FROM " +TABLE_POWER_CLASS +
                 " WHERE lowRoll <= " + roll + " AND highRoll >= " + roll;
 
-        Cursor cursor = database.rawQuery(powerClassquery, null);
+        Cursor cursor = database.rawQuery(query, null);
         cursor.moveToFirst();
-        String powerClass = cursor.getString(cursor.getColumnIndex("powerClass"));
-        String powerTableName = cursor.getString(cursor.getColumnIndex("powerTableName"));
+
+        map.put("powerClass",cursor.getString(cursor.getColumnIndex("powerClass")));
+        map.put("powerTableName", cursor.getString(cursor.getColumnIndex("powerTableName")));
         cursor.close();
+        return map;
+    }
 
-        int powerRoll = DieRoller.roll(100);
+    public Power rollPower(int roll, Map<String, String> map) {
 
-        String powerQuery = "SELECT id_power, power, powerCode FROM " + powerTableName +
-                " WHERE lowRoll <= " + powerRoll + " AND highRoll >= " + powerRoll;
-        Cursor powerCursor = database.rawQuery(powerClassquery, null);
+        String powerClass = map.get("powerClass");
+        String powerTableName = map.get("powerTableName");
 
-        Log.d("HERO", powerQuery);
+        String query = "SELECT id_power, power, powerCode FROM " + powerTableName +
+                " WHERE lowRoll <= " + roll + " AND highRoll >= " + roll;
+        Cursor cursor = database.rawQuery(query, null);
 
-        powerCursor.moveToFirst();
-        String powerName = powerCursor.getString(powerCursor.getColumnIndex("power"));
-        String powerCode = powerCursor.getString(powerCursor.getColumnIndex("powerCode") +
-                powerCursor.getInt(powerCursor.getColumnIndex("id_power")));
-        powerCursor.close();
+        Log.d("HERO", query);
+
+
+        for(String s: cursor.getColumnNames()){
+            Log.d("HERO",s );
+        }
+        cursor.moveToFirst();
+        String powerName = cursor.getString(cursor.getColumnIndex("power"));
+        String powerCode = cursor.getString(cursor.getColumnIndex("powerCode") +
+                cursor.getInt(cursor.getColumnIndex("id_power")));
+        cursor.close();
 
         return new Power(powerClass, powerName, powerCode);
     }
