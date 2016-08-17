@@ -28,7 +28,7 @@
         android:inputType="textPersonName"
         android:text="Name"
         android:ems="10"
-        android:id="@+id/editText"/>
+        android:id="@+id/editName"/>
 
     <TextView
         android:layout_width="wrap_content"

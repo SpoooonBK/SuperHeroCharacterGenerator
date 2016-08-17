@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         final TextView subForm = (TextView)findViewById(R.id.textViewSubform);
         final TextView origin = (TextView)findViewById(R.id.textViewOrigin);
         final ListView listView = (ListView)findViewById(R.id.powersList);
+        final EditText editText = (EditText)findViewById(R.id.editName);
 
 
         rollButton.setOnClickListener(new View.OnClickListener() {
@@ -52,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
                 physicalForm.setText(character.getForm().getFormType());
                 subForm.setText(character.getForm().getSubFormType());
                 origin.setText(character.getOrigin().getOrigin());
+                editText.setText(character.getCharacterName());
 
 
                 ArrayAdapter<String> adapter =

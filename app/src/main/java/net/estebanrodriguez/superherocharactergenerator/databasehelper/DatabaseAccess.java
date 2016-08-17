@@ -164,6 +164,29 @@ public class DatabaseAccess {
         return map;
     }
 
+    public String rollName(){
+        String fullName;
+        int firstNameTotalRows = database.rawQuery("SELECT id_first_name FROM us_first_names", null).getCount();
+        String query = "SELECT first_name FROM us_first_names WHERE id_first_name = " + DieRoller.roll(firstNameTotalRows);
+        Cursor firstNameCursor = database.rawQuery(query, null);
+        firstNameCursor.moveToFirst();
+        String firstName = firstNameCursor.getString(firstNameCursor.getColumnIndex("first_name"));
+        firstNameCursor.close();
+
+        int surameTotalRows = database.rawQuery("SELECT id_surname FROM us_surnames", null).getCount();
+        String querySurname = "SELECT surname FROM us_surnames WHERE id_surname = " + DieRoller.roll(surameTotalRows);
+        Log.d("HERO", "SURNAME: "+ querySurname);
+        Cursor surnameCursor = database.rawQuery(querySurname, null);
+
+        surnameCursor.moveToFirst();
+        String surname = surnameCursor.getString(surnameCursor.getColumnIndex("surname"));
+        surnameCursor.close();
+
+        fullName = firstName + " " + surname;
+
+        return fullName;
+    }
+
     public Power rollPower(int roll, Map<String, String> map) {
 
         String powerClass = map.get(DatabaseValues.COLUMN_POWER_CLASS);
@@ -194,4 +217,5 @@ public class DatabaseAccess {
 
         return new Power(powerClass, powerName, powerCode);
     }
+
 }

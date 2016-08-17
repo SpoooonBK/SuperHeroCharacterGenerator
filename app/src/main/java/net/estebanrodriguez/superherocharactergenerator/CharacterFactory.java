@@ -37,6 +37,9 @@ public class CharacterFactory {
         databaseAccess.open();
         Log.d("HERO","databaseAccess created");
 
+        //set Name
+        character.setCharacterName(databaseAccess.rollName());
+
         //set form
         character.setForm(databaseAccess.rollForm(DieRoller.roll(100)));
 
