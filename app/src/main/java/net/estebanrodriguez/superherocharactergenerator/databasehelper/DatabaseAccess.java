@@ -166,8 +166,17 @@ public class DatabaseAccess {
 
     public String rollName(){
         String fullName;
-        int firstNameTotalRows = database.rawQuery("SELECT id_first_name FROM us_first_names", null).getCount();
-        String query = "SELECT first_name FROM us_first_names WHERE id_first_name = " + DieRoller.roll(firstNameTotalRows);
+        String tableName;
+
+        //choose between male name  or female name tables
+        if (DieRoller.roll(100)>50){
+            tableName = "us_male_names_2015";
+        } else tableName = "us_female_names_2015";
+
+
+        int firstNameTotalRows = database.rawQuery("SELECT id_name FROM " + tableName, null).getCount();
+        String query = "SELECT first_name FROM "+ tableName +
+                " WHERE id_name = " + DieRoller.roll(firstNameTotalRows);
         Cursor firstNameCursor = database.rawQuery(query, null);
         firstNameCursor.moveToFirst();
         String firstName = firstNameCursor.getString(firstNameCursor.getColumnIndex("first_name"));
