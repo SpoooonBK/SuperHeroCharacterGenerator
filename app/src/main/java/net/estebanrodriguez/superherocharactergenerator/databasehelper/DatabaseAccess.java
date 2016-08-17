@@ -86,8 +86,8 @@ public class DatabaseAccess {
 
         Cursor cursor = database.rawQuery(query, null);
         cursor.moveToFirst();
-        String form = cursor.getString(cursor.getColumnIndex("form"));
-        String subform = cursor.getString(cursor.getColumnIndex("subForm"));
+        String form = cursor.getString(cursor.getColumnIndex(DatabaseValues.COLUMN_FORM));
+        String subform = cursor.getString(cursor.getColumnIndex(DatabaseValues.COLUMN_SUBFORM));
 
         cursor.close();
         return new PhysicalForm(form, subform);
@@ -102,7 +102,7 @@ public class DatabaseAccess {
 
         Cursor cursor = database.rawQuery(query, null);
         cursor.moveToFirst();
-        String origin = cursor.getString(cursor.getColumnIndex("origin"));
+        String origin = cursor.getString(cursor.getColumnIndex(DatabaseValues.COLUMN_ORIGIN));
         cursor.close();
         return new Origin(origin);
     }
@@ -155,21 +155,23 @@ public class DatabaseAccess {
             Log.d("HERO",s);
         }
 
-
         cursor.moveToFirst();
 
-        map.put("powerClass",cursor.getString(cursor.getColumnIndex("powerClass")));
-        map.put("powerTableName", cursor.getString(cursor.getColumnIndex("powerTableName")));
+        map.put(DatabaseValues.COLUMN_POWER_CLASS,cursor.getString(cursor.getColumnIndex(DatabaseValues.COLUMN_POWER_CLASS)));
+        map.put(DatabaseValues.COLUMN_POWER_TABLE_NAME, cursor.getString(cursor.getColumnIndex(DatabaseValues.COLUMN_POWER_TABLE_NAME)));
         cursor.close();
         return map;
     }
 
     public Power rollPower(int roll, Map<String, String> map) {
 
-        String powerClass = map.get("powerClass");
-        String powerTableName = map.get("powerTableName");
+        String powerClass = map.get(DatabaseValues.COLUMN_POWER_CLASS);
+        String powerTableName = map.get(DatabaseValues.COLUMN_POWER_TABLE_NAME);
 
-        String query = "SELECT id_power, power, powerCode FROM " + powerTableName +
+        String query = "SELECT " +
+                DatabaseValues.COLUMN_POWER_ID +
+                ", " + DatabaseValues.COLUMN_POWER_CODE +
+                " FROM " + powerTableName +
                 " WHERE " + DatabaseValues.COLUMN_LOW_ROLL + " <= " + roll + " AND " +
                 DatabaseValues.COLUMN_HIGH_ROLL + " >= " + roll;
 
@@ -182,9 +184,9 @@ public class DatabaseAccess {
             Log.d("HERO","rollPower: "+ s );
         }
         cursor.moveToFirst();
-        String powerName = cursor.getString(cursor.getColumnIndex("power"));
-        String code = cursor.getString(cursor.getColumnIndex("powerCode"));
-        int powerid = cursor.getInt(cursor.getColumnIndex("id_power"));
+        String powerName = cursor.getString(cursor.getColumnIndex(DatabaseValues.COLUMN_POWER));
+        String code = cursor.getString(cursor.getColumnIndex(DatabaseValues.COLUMN_POWER_CODE));
+        int powerid = cursor.getInt(cursor.getColumnIndex(DatabaseValues.COLUMN_POWER_ID));
         String powerCode = code + powerid;
         cursor.close();
 

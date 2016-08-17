@@ -35,6 +35,7 @@ public class DatabaseValues {
     public static final String COLUMN_HIGH_ROLL = "highRoll";
     public static final String COLUMN_POWER = "power";
     public static final String COLUMN_POWER_CODE = "powerCode";
+    public static final String COLUMN_POWER_ID = "id_power";
     public static final String COLUMN_ORIGIN = "origin";
     public static final String COLUMN_DECRIPTION ="description";
     public static final String COLUMN_POWER_CLASS_CODE = "powerClassCode";
