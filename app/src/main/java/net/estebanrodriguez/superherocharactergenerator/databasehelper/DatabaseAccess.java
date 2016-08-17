@@ -27,28 +27,7 @@ public class DatabaseAccess {
     private static DatabaseAccess instance;
 
 
-    private final String TABLE_NUMBER_OF_POWERS = "number_of_powers";
-    private final String TABLE_ORIGIN = "origin";
-    private final String TABLE_PHYSICAL_FORM = "physicalForm";
-    private final String TABLE_POWER_CLASS = "power_class";
-    private final String TABLE_POWER_DEFENSIVE = "power_defensive";
-    private final String TABLE_POWER_DETECTION = "power_detection";
-    private final String TABLE_POWER_ENERGY_CONTROL = "power_energy_control";
-    private final String TABLE_POWER_ENERGY_EMISSION = "power_energy_emission";
-    private final String TABLE_POWER_FIGHTING = "power_fighting";
-    private final String TABLE_POWER_ILLUSORY = "power_illusory";
-    private final String TABLE_POWER_LIFEFORM_CONTROL = "power_lifeform_control";
-    private final String TABLE_POWER_MAGICAL = "power_magical";
-    private final String TABLE_POWER_MATTER_CONTROL = "power_matter_control";
-    private final String TABLE_POWER_MATTER_CONVERSION = "power_matter_conversion";
-    private final String TABLE_POWER_MATTER_CREATION = "power_matter_creation";
-    private final String TABLE_POWER_MENTAL_ENHANCEMENT = "power_mental_enhancement";
-    private final String TABLE_POWER_PHYSICAL_ENHANCEMENT = "power_physical_enchancement";
-    private final String TABLE_POWER_POWER_CONTROL = "power_power_control";
-    private final String TABLE_POWER_SELF_ALTERATION = "power_self_alteration";
-    private final String TABLE_POWER_TRAVEL = "power_travel";
-    private final String TABLE_WEAKNESS_DURATION = "weakness_duration";
-    private final String TABLE_WEAKNESS_EFFECT = "weakness_effect";
+
 
 
 
@@ -97,8 +76,12 @@ public class DatabaseAccess {
      */
     public PhysicalForm rollForm(int roll) {
         Log.d ("HERO", "Roll: " + roll);
-        String query = "SELECT form, subForm FROM " + TABLE_PHYSICAL_FORM +
-                " WHERE lowRoll <= " + roll + " AND highRoll >= " + roll;
+        String query = "SELECT "
+                + DatabaseValues.COLUMN_FORM +
+                ", " + DatabaseValues.COLUMN_SUBFORM +
+                " FROM " + DatabaseValues.TABLE_PHYSICAL_FORM +
+                " WHERE " + DatabaseValues.COLUMN_LOW_ROLL + " <= " + roll + " AND " +
+                DatabaseValues.COLUMN_HIGH_ROLL + " >= " + roll;
 
 
         Cursor cursor = database.rawQuery(query, null);
@@ -111,8 +94,11 @@ public class DatabaseAccess {
     }
 
     public Origin rollOrigin(int roll) {
-        String query = "SELECT origin FROM " + TABLE_ORIGIN+
-                " WHERE lowRoll <= " + roll + " AND highRoll >= " + roll;
+        String query = "SELECT " +
+                DatabaseValues.COLUMN_ORIGIN +
+                " FROM " + DatabaseValues.TABLE_ORIGIN +
+                " WHERE " + DatabaseValues.COLUMN_LOW_ROLL + " <= " + roll + " AND " +
+                DatabaseValues.COLUMN_HIGH_ROLL + " >= " + roll;
 
         Cursor cursor = database.rawQuery(query, null);
         cursor.moveToFirst();
@@ -121,12 +107,17 @@ public class DatabaseAccess {
         return new Origin(origin);
     }
 
-    public List<Integer> rollAmounts(int roll) {
-        List<Integer> list = new ArrayList<>();
-        String query = "SELECT powersInitialAmount, powersMaxAmount,  talentsInitialAmount, " +
-                "talentsMaxAmount, contactsInitialAmount, contactsMaxAmount " +
-                "FROM " + TABLE_NUMBER_OF_POWERS +" WHERE lowRoll <=" + roll +
-                " AND highRoll >= " + roll;
+    public Map<String, Integer> rollAmounts(int roll) {
+        Map<String, Integer> map = new HashMap<>();
+        String query = "SELECT " +
+                DatabaseValues.COLUMN_POWERS_INITIAL +
+                ", " + DatabaseValues.COLUMN_POWERS_MAX +
+                ", " + DatabaseValues.COLUMN_TALENTS_INITIAL +
+                ", " + DatabaseValues.COLUMN_TALENTS_MAX +
+                ", " + DatabaseValues.COLUMN_CONTACTS_INITIAL +
+                ", " + DatabaseValues.COLUMN_CONTACTS_MAX +
+                " WHERE " + DatabaseValues.COLUMN_LOW_ROLL + " <= " + roll + " AND " +
+                DatabaseValues.COLUMN_HIGH_ROLL + " >= " + roll;
 
         Log.d ("HER0", "QUERY: "+query);
         Cursor cursor = database.rawQuery(query, null);
@@ -137,21 +128,25 @@ public class DatabaseAccess {
         }
 
         cursor.moveToFirst();
-        list.add(cursor.getInt(cursor.getColumnIndex("powersInitialAmount")));
-        list.add(cursor.getInt(cursor.getColumnIndex("powersMaxAmount")));
-        list.add(cursor.getInt(cursor.getColumnIndex("talentsInitialAmount")));
-        list.add(cursor.getInt(cursor.getColumnIndex("talentsMaxAmount")));
-        list.add(cursor.getInt(cursor.getColumnIndex("contactsInitialAmount")));
-        list.add(cursor.getInt(cursor.getColumnIndex("contactsMaxAmount")));
-        cursor.close();
-        return list;
+        map.put(DatabaseValues.COLUMN_POWERS_INITIAL, cursor.getInt(cursor.getColumnIndex(DatabaseValues.COLUMN_POWERS_INITIAL)));
+        map.put(DatabaseValues.COLUMN_POWERS_MAX, cursor.getInt(cursor.getColumnIndex(DatabaseValues.COLUMN_POWERS_MAX)));
+        map.put(DatabaseValues.COLUMN_TALENTS_INITIAL, cursor.getInt(cursor.getColumnIndex(DatabaseValues.COLUMN_TALENTS_INITIAL)));
+        map.put(DatabaseValues.COLUMN_TALENTS_MAX, cursor.getInt(cursor.getColumnIndex(DatabaseValues.COLUMN_TALENTS_MAX)));
+        map.put(DatabaseValues.COLUMN_CONTACTS_INITIAL, cursor.getInt(cursor.getColumnIndex(DatabaseValues.COLUMN_CONTACTS_INITIAL)));
+        map.put(DatabaseValues.COLUMN_CONTACTS_MAX, cursor.getInt(cursor.getColumnIndex(DatabaseValues.COLUMN_CONTACTS_MAX)));
+
+        return map;
     }
 
     public Map<String, String> rollPowerClass(int roll){
 
         Map<String, String> map = new HashMap<>();
-        String query = "SELECT powerClass, powerTableName FROM " +TABLE_POWER_CLASS +
-                " WHERE lowRoll <= " + roll + " AND highRoll >= " + roll;
+        String query = "SELECT " +
+                DatabaseValues.COLUMN_POWER_CLASS +
+                ", " + DatabaseValues.COLUMN_POWER_TABLE_NAME +
+                " FROM " +DatabaseValues.TABLE_POWER_CLASS +
+                " WHERE " + DatabaseValues.COLUMN_LOW_ROLL + " <= " + roll + " AND " +
+                DatabaseValues.COLUMN_HIGH_ROLL + " >= " + roll;
 
         Log.d("HERO", "rollPowerClass: "+query);
         Cursor cursor = database.rawQuery(query, null);
@@ -175,7 +170,9 @@ public class DatabaseAccess {
         String powerTableName = map.get("powerTableName");
 
         String query = "SELECT id_power, power, powerCode FROM " + powerTableName +
-                " WHERE lowRoll <= " + roll + " AND highRoll >= " + roll;
+                " WHERE " + DatabaseValues.COLUMN_LOW_ROLL + " <= " + roll + " AND " +
+                DatabaseValues.COLUMN_HIGH_ROLL + " >= " + roll;
+
         Cursor cursor = database.rawQuery(query, null);
 
         Log.d("HERO", "rollPower:" + query);

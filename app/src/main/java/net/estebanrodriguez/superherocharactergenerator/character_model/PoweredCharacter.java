@@ -2,8 +2,10 @@ package net.estebanrodriguez.superherocharactergenerator.character_model;
 
 import net.estebanrodriguez.superherocharactergenerator.DieRoller;
 import net.estebanrodriguez.superherocharactergenerator.databasehelper.DatabaseAccess;
+import net.estebanrodriguez.superherocharactergenerator.databasehelper.DatabaseValues;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Tara on 8/11/2016.
@@ -29,17 +31,17 @@ public class PoweredCharacter extends Character {
     }
 
 
-    public void setAmounts(List<Integer> amounts){
-        setInitialAmountofPowers(amounts.get(0));
-        setMaxAmountofPowers(amounts.get(1));
+    public void setAmounts(Map<String, Integer> amounts){
+        setInitialAmountofPowers(amounts.get(DatabaseValues.COLUMN_POWERS_INITIAL));
+        setMaxAmountofPowers(amounts.get(DatabaseValues.COLUMN_POWERS_MAX));
         setCurrentAmountofPowers(mInitialAmountofPowers);
 
-        setInitialAmountofTalents(amounts.get(2));
-        setMaxAmountofTalents(amounts.get(3));
+        setInitialAmountofTalents(amounts.get(DatabaseValues.COLUMN_TALENTS_INITIAL));
+        setMaxAmountofTalents(amounts.get(DatabaseValues.COLUMN_TALENTS_MAX));
         setCurrentAmountOfTalents(mInitialAmountofTalents);
 
-        setInitialAmountofContacts(amounts.get(4));
-        setMaxAmountofContacts(amounts.get(5));
+        setInitialAmountofContacts(amounts.get(DatabaseValues.COLUMN_CONTACTS_INITIAL));
+        setMaxAmountofContacts(amounts.get(DatabaseValues.COLUMN_CONTACTS_MAX));
         setCurrentAmountofContacts(mInitialAmountofContacts);
     }
 
@@ -126,4 +128,6 @@ public class PoweredCharacter extends Character {
     public void setMaxAmountofContacts(int maxAmountofContacts) {
         mMaxAmountofContacts = maxAmountofContacts;
     }
+
+
 }
