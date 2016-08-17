@@ -116,6 +116,7 @@ public class DatabaseAccess {
                 ", " + DatabaseValues.COLUMN_TALENTS_MAX +
                 ", " + DatabaseValues.COLUMN_CONTACTS_INITIAL +
                 ", " + DatabaseValues.COLUMN_CONTACTS_MAX +
+                " FROM " + DatabaseValues.TABLE_NUMBER_OF_POWERS +
                 " WHERE " + DatabaseValues.COLUMN_LOW_ROLL + " <= " + roll + " AND " +
                 DatabaseValues.COLUMN_HIGH_ROLL + " >= " + roll;
 
@@ -171,6 +172,7 @@ public class DatabaseAccess {
         String query = "SELECT " +
                 DatabaseValues.COLUMN_POWER_ID +
                 ", " + DatabaseValues.COLUMN_POWER_CODE +
+                ", " + DatabaseValues.COLUMN_POWER +
                 " FROM " + powerTableName +
                 " WHERE " + DatabaseValues.COLUMN_LOW_ROLL + " <= " + roll + " AND " +
                 DatabaseValues.COLUMN_HIGH_ROLL + " >= " + roll;
