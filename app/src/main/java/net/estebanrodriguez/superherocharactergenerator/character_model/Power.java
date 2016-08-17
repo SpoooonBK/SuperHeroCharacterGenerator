@@ -6,13 +6,13 @@ package net.estebanrodriguez.superherocharactergenerator.character_model;
 public class Power {
 
     String mPowerClass;
-    String mPower;
+    String mPowerName;
     String mPowerCode;
     String mPowerDescription;
 
-    public Power(String powerClass, String power, String powerCode) {
+    public Power(String powerClass, String powerName, String powerCode) {
         mPowerClass = powerClass;
-        mPower = power;
+        mPowerName = powerName;
         mPowerCode = powerCode;
     }
 
@@ -23,12 +23,12 @@ public class Power {
     public void setPowerClass(int d100) {
     }
 
-    public String getPower() {
-        return mPower;
+    public String getPowerName() {
+        return mPowerName;
     }
 
-    public void setPower(String power) {
-        mPower = power;
+    public void setPowerName(String powerName) {
+        mPowerName = powerName;
     }
 
     public String getPowerDescription() {

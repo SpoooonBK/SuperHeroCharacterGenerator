@@ -9,6 +9,12 @@
               android:orientation="vertical"
              tools:context=".MainActivity">
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/roll_a_character"
+        android:id="@+id/rollButton"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -74,11 +80,8 @@
         android:id="@+id/headerPowers"/>
     <ListView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></ListView>
-
-    <Button
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/roll_a_character"
-        android:id="@+id/rollButton"/>
+        android:id="@+id/powersList"/>
+
+
 </LinearLayout>
