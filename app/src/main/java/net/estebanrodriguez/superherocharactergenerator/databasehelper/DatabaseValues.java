@@ -55,6 +55,6 @@ public class DatabaseValues {
     public static final String COLUMN_WEAKNESS_STIMULUS = "weakness_stimulus";
     public static final String COLUMN_RANDOM_RANKS_ROLL_COL = "random_ranks_roll_column";
     public static final String COLUMN_RANK_NAME = "rank_name";
-    public static final String COLUMN_INITIAL_RANK_NUMBER = "intitial_rank_number";
+    public static final String COLUMN_INITIAL_RANK_NUMBER = "initial_rank_number";
 
 }

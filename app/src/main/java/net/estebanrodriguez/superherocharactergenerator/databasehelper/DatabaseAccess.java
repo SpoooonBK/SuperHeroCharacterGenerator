@@ -233,7 +233,7 @@ public class DatabaseAccess {
 
         Map<AbilityNamesEnum, Ability> abilityMap = new HashMap<>();
         String lowRollColumn = "lowRoll_col_"+rollColumn;
-        String highRollColumn = "highRoll_col"+rollColumn;
+        String highRollColumn = "highRoll_col_"+rollColumn;
 
         for(AbilityNamesEnum abilityEnum : AbilityNamesEnum.values()){
             String abilityName = abilityEnum.getAbilityName();

@@ -6,7 +6,11 @@
     <string name="subform">SUBFORM:</string>
     <string name="powers">POWERS:</string>
     <string name="character_name">CHARACTER NAME:</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fighting">FIGHTING:</string>
+    <string name="agility">AGILITY:</string>
+    <string name="strength">STRENGTH:</string>
+    <string name="endurance">ENDURANCE:</string>
+    <string name="reason">REASON:</string>
+    <string name="Intuition">INTUITION:</string>
+    <string name="Psyche">PSYCHE:</string>
 </resources>
