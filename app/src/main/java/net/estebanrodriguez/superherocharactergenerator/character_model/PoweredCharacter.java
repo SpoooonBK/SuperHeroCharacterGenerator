@@ -11,6 +11,7 @@ import java.util.Map;
 public class PoweredCharacter extends Character {
     List<Power> mPowers;
     Origin mOrigin;
+    Map<AbilityNamesEnum, Ability> mAbilityMap;
 
     int mInitialAmountofPowers;
     int mCurrentAmountofPowers;
@@ -127,5 +128,11 @@ public class PoweredCharacter extends Character {
         mMaxAmountofContacts = maxAmountofContacts;
     }
 
+    public Map<AbilityNamesEnum, Ability> getAbilityMap() {
+        return mAbilityMap;
+    }
 
+    public void setAbilityMap(Map<AbilityNamesEnum, Ability> abilityMap) {
+        mAbilityMap = abilityMap;
+    }
 }

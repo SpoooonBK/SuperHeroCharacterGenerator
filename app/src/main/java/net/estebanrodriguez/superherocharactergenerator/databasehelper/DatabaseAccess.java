@@ -9,12 +9,15 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import net.estebanrodriguez.superherocharactergenerator.character_model.Ability;
+import net.estebanrodriguez.superherocharactergenerator.character_model.AbilityNamesEnum;
 import net.estebanrodriguez.superherocharactergenerator.utilities.DieRoller;
 import net.estebanrodriguez.superherocharactergenerator.character_model.Origin;
 import net.estebanrodriguez.superherocharactergenerator.character_model.PhysicalForm;
 import net.estebanrodriguez.superherocharactergenerator.character_model.Power;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -76,6 +79,7 @@ public class DatabaseAccess {
         String query = "SELECT "
                 + DatabaseValues.COLUMN_FORM +
                 ", " + DatabaseValues.COLUMN_SUBFORM +
+                ", " + DatabaseValues.COLUMN_RANDOM_RANKS_ROLL_COL +
                 " FROM " + DatabaseValues.TABLE_PHYSICAL_FORM +
                 " WHERE " + DatabaseValues.COLUMN_LOW_ROLL + " <= " + roll + " AND " +
                 DatabaseValues.COLUMN_HIGH_ROLL + " >= " + roll;
@@ -85,9 +89,10 @@ public class DatabaseAccess {
         cursor.moveToFirst();
         String form = cursor.getString(cursor.getColumnIndex(DatabaseValues.COLUMN_FORM));
         String subform = cursor.getString(cursor.getColumnIndex(DatabaseValues.COLUMN_SUBFORM));
+        int rollColumn = cursor.getInt(cursor.getColumnIndex(DatabaseValues.COLUMN_RANDOM_RANKS_ROLL_COL));
 
         cursor.close();
-        return new PhysicalForm(form, subform);
+        return new PhysicalForm(form, subform, rollColumn);
     }
 
     public Origin rollOrigin(int roll) {
@@ -222,6 +227,39 @@ public class DatabaseAccess {
         cursor.close();
 
         return new Power(powerClass, powerName, powerCode);
+    }
+
+    public Map<AbilityNamesEnum, Ability> rollAbilities(int rollColumn) {
+
+        Map<AbilityNamesEnum, Ability> abilityMap = new HashMap<>();
+        String lowRollColumn = "lowRoll_col_"+rollColumn;
+        String highRollColumn = "highRoll_col"+rollColumn;
+
+        for(AbilityNamesEnum abilityEnum : AbilityNamesEnum.values()){
+            String abilityName = abilityEnum.getAbilityName();
+            String initialRankName;
+            int initialRankNumber;
+
+            int roll = DieRoller.roll(100);
+
+
+            String query = "SELECT " + DatabaseValues.COLUMN_RANK_NAME +
+                    ", " + DatabaseValues.COLUMN_INITIAL_RANK_NUMBER +
+                    " FROM " + DatabaseValues.TABLE_RANDOM_RANKS +
+                    " WHERE " + lowRollColumn + " <= " + roll +
+                    " AND " + highRollColumn + " >= " + roll;
+            Log.d("HERO", "ABILITY ROLL: " + query);
+
+            Cursor cursor = database.rawQuery(query,null);
+            cursor.moveToFirst();
+            initialRankName = cursor.getString(cursor.getColumnIndex(DatabaseValues.COLUMN_RANK_NAME));
+            initialRankNumber = cursor.getInt(cursor.getColumnIndex(DatabaseValues.COLUMN_INITIAL_RANK_NUMBER));
+
+            abilityMap.put(abilityEnum, new Ability(abilityName, initialRankName,initialRankNumber));
+        }
+
+
+        return abilityMap;
     }
 
 }

@@ -58,6 +58,8 @@ public class CharacterFactory {
         }
         character.setPowers(powers);
 
+        character.setAbilityMap(databaseAccess.rollAbilities(character.getForm().getRandomRanksRollColumn()));
+
         databaseAccess.close();
         return character;
     }

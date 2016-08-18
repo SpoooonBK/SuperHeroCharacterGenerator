@@ -9,10 +9,12 @@ public class PhysicalForm {
     private String mFormType;
     private String mSubFormType;
     private String mFormdescription;
+    private int mRandomRanksRollColumn;
 
-    public PhysicalForm(String formType, String subFormType) {
+    public PhysicalForm(String formType, String subFormType, int randomRanksRollColumn) {
         mFormType = formType;
         mSubFormType = subFormType;
+        mRandomRanksRollColumn = randomRanksRollColumn;
     }
 
     public int getFormID() {
@@ -45,5 +47,13 @@ public class PhysicalForm {
 
     public void setFormdescription(String formdescription) {
         mFormdescription = formdescription;
+    }
+
+    public int getRandomRanksRollColumn() {
+        return mRandomRanksRollColumn;
+    }
+
+    public void setRandomRanksRollColumn(int randomRanksRollColumn) {
+        mRandomRanksRollColumn = randomRanksRollColumn;
     }
 }

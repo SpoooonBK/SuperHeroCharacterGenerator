@@ -7,6 +7,7 @@ public class DatabaseValues {
 
     //tables
     public static final String TABLE_NUMBER_OF_POWERS = "number_of_powers";
+    public static final String TABLE_RANDOM_RANKS ="random_ranks";
     public static final String TABLE_ORIGIN = "origin";
     public static final String TABLE_PHYSICAL_FORM = "physicalForm";
     public static final String TABLE_POWER_CLASS = "power_class";
@@ -52,5 +53,8 @@ public class DatabaseValues {
     public static final String COLUMN_WEAKNESS_DURATION = "weakness_duration";
     public static final String COLUMN_WEAKNESS_EFFECT = "weakness_effect";
     public static final String COLUMN_WEAKNESS_STIMULUS = "weakness_stimulus";
+    public static final String COLUMN_RANDOM_RANKS_ROLL_COL = "random_ranks_roll_column";
+    public static final String COLUMN_RANK_NAME = "rank_name";
+    public static final String COLUMN_INITIAL_RANK_NUMBER = "intitial_rank_number";
 
 }
