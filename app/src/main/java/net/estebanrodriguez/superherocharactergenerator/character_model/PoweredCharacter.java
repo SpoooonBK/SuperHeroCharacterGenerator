@@ -1,7 +1,5 @@
 package net.estebanrodriguez.superherocharactergenerator.character_model;
 
-import net.estebanrodriguez.superherocharactergenerator.DieRoller;
-import net.estebanrodriguez.superherocharactergenerator.databasehelper.DatabaseAccess;
 import net.estebanrodriguez.superherocharactergenerator.databasehelper.DatabaseValues;
 
 import java.util.List;

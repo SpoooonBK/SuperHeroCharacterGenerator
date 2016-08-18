@@ -1,4 +1,4 @@
-package net.estebanrodriguez.superherocharactergenerator;
+package net.estebanrodriguez.superherocharactergenerator.utilities;
 
 /**
  * Created by Tara on 8/11/2016.

@@ -9,15 +9,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import net.estebanrodriguez.superherocharactergenerator.DieRoller;
+import net.estebanrodriguez.superherocharactergenerator.utilities.DieRoller;
 import net.estebanrodriguez.superherocharactergenerator.character_model.Origin;
 import net.estebanrodriguez.superherocharactergenerator.character_model.PhysicalForm;
 import net.estebanrodriguez.superherocharactergenerator.character_model.Power;
 
-import java.text.ParsePosition;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 

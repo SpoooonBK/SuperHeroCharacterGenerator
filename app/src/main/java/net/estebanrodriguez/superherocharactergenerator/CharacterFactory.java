@@ -7,6 +7,7 @@ import net.estebanrodriguez.superherocharactergenerator.character_model.Characte
 import net.estebanrodriguez.superherocharactergenerator.character_model.Power;
 import net.estebanrodriguez.superherocharactergenerator.character_model.PoweredCharacter;
 import net.estebanrodriguez.superherocharactergenerator.databasehelper.DatabaseAccess;
+import net.estebanrodriguez.superherocharactergenerator.utilities.DieRoller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,7 @@ public class CharacterFactory {
         return character;
     }
 
-    public Character generatePoweredCharacter(){
+    public PoweredCharacter generatePoweredCharacter(){
         PoweredCharacter character = new PoweredCharacter();
 
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(mContext);

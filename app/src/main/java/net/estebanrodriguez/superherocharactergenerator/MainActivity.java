@@ -13,10 +13,12 @@ import net.estebanrodriguez.superherocharactergenerator.character_model.Characte
 import net.estebanrodriguez.superherocharactergenerator.character_model.Power;
 import net.estebanrodriguez.superherocharactergenerator.character_model.PoweredCharacter;
 import net.estebanrodriguez.superherocharactergenerator.databasehelper.DatabaseAccess;
+import net.estebanrodriguez.superherocharactergenerator.utilities.CharacterPool;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
     private ListView listView;
@@ -25,9 +27,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
         mCharacterFactory = new CharacterFactory(this);
+        setContentView(R.layout.activity_main);
+
 
         Button rollButton = (Button) findViewById(R.id.rollButton);
         final TextView physicalForm = (TextView)findViewById(R.id.textviewPhysicalForm);
@@ -41,7 +44,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                PoweredCharacter character = (PoweredCharacter) mCharacterFactory.generatePoweredCharacter();
+                CharacterRollerAsyncTask task = new CharacterRollerAsyncTask();
+                task.execute(mCharacterFactory);
+                PoweredCharacter character = null;
+                try {
+                    character = task.get();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+
                 //Get power Data
                 List<String> powerData = new ArrayList<String>();
 
@@ -67,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
 
 
 
