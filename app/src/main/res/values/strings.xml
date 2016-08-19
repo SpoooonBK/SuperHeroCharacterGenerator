@@ -13,4 +13,7 @@
     <string name="reason">REASON:</string>
     <string name="Intuition">INTUITION:</string>
     <string name="Psyche">PSYCHE:</string>
+    <string name="random">RANDOM</string>
+    <string name="health">HEALTH:</string>
+    <string name="karma">KARMA:</string>
 </resources>

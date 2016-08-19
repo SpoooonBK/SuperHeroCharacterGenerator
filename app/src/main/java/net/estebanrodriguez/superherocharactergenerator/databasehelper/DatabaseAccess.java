@@ -11,6 +11,7 @@ import android.util.Log;
 
 import net.estebanrodriguez.superherocharactergenerator.character_model.Ability;
 import net.estebanrodriguez.superherocharactergenerator.character_model.AbilityNamesEnum;
+import net.estebanrodriguez.superherocharactergenerator.character_model.Weakness;
 import net.estebanrodriguez.superherocharactergenerator.utilities.DieRoller;
 import net.estebanrodriguez.superherocharactergenerator.character_model.Origin;
 import net.estebanrodriguez.superherocharactergenerator.character_model.PhysicalForm;
@@ -137,7 +138,7 @@ public class DatabaseAccess {
         map.put(DatabaseValues.COLUMN_TALENTS_MAX, cursor.getInt(cursor.getColumnIndex(DatabaseValues.COLUMN_TALENTS_MAX)));
         map.put(DatabaseValues.COLUMN_CONTACTS_INITIAL, cursor.getInt(cursor.getColumnIndex(DatabaseValues.COLUMN_CONTACTS_INITIAL)));
         map.put(DatabaseValues.COLUMN_CONTACTS_MAX, cursor.getInt(cursor.getColumnIndex(DatabaseValues.COLUMN_CONTACTS_MAX)));
-
+        cursor.close();
         return map;
     }
 
@@ -254,12 +255,68 @@ public class DatabaseAccess {
             cursor.moveToFirst();
             initialRankName = cursor.getString(cursor.getColumnIndex(DatabaseValues.COLUMN_RANK_NAME));
             initialRankNumber = cursor.getInt(cursor.getColumnIndex(DatabaseValues.COLUMN_INITIAL_RANK_NUMBER));
-
+            cursor.close();
             abilityMap.put(abilityEnum, new Ability(abilityName, initialRankName,initialRankNumber));
         }
 
 
         return abilityMap;
+    }
+
+    public Weakness rollWeakness(){
+
+        String effect = rollWeaknessEffect();
+        String duration = rollWeaknessDuration();
+        String stimulus = rollWeaknessStimulus();
+
+        return new Weakness(effect, duration,stimulus);
+    }
+
+    public String rollWeaknessEffect(){
+
+        int roll = DieRoller.roll(100);
+        String query = "SELECT " + DatabaseValues.COLUMN_WEAKNESS_EFFECT +
+                " FROM " + DatabaseValues.TABLE_WEAKNESS_EFFECT +
+                " WHERE " + DatabaseValues.COLUMN_LOW_ROLL + " <= " + roll + " AND " +
+                DatabaseValues.COLUMN_HIGH_ROLL + " >= " + roll;
+
+        Log.d("HERO", "WEAKNESS EFFECT: " + query);
+
+        Cursor cursor = database.rawQuery(query, null);
+        cursor.moveToFirst();
+        String effect = cursor.getString(cursor.getColumnIndex(DatabaseValues.COLUMN_WEAKNESS_EFFECT));
+        return effect;
+    }
+
+    public String rollWeaknessDuration(){
+        int roll = DieRoller.roll(100);
+        String query = "SELECT " + DatabaseValues.COLUMN_WEAKNESS_DURATION +
+                " FROM " + DatabaseValues.TABLE_WEAKNESS_DURATION +
+                " WHERE " + DatabaseValues.COLUMN_LOW_ROLL + " <= " + roll + " AND " +
+                DatabaseValues.COLUMN_HIGH_ROLL + " >= " + roll;
+
+        Log.d("HERO", "WEAKNESS DURATION: "+ query);
+
+        Cursor cursor = database.rawQuery(query, null);
+        cursor.moveToFirst();
+        String duration = cursor.getString(cursor.getColumnIndex(DatabaseValues.COLUMN_WEAKNESS_DURATION));
+        return duration;
+    }
+
+    public String rollWeaknessStimulus(){
+        int roll = DieRoller.roll(100);
+
+        String query = "SELECT " + DatabaseValues.COLUMN_WEAKNESS_STIMULUS +
+                " FROM " + DatabaseValues.TABLE_WEAKNESS_STIMULUS +
+                " WHERE " + DatabaseValues.COLUMN_LOW_ROLL + " <= " + roll + " AND " +
+                DatabaseValues.COLUMN_HIGH_ROLL + " >= " + roll;
+
+        Log.d("HERO", "WEAKNESS STIMULUS: "+ query);
+
+        Cursor cursor = database.rawQuery(query, null);
+        cursor.moveToFirst();
+        String stimulus = cursor.getString(cursor.getColumnIndex(DatabaseValues.COLUMN_WEAKNESS_STIMULUS));
+        return stimulus;
     }
 
 }

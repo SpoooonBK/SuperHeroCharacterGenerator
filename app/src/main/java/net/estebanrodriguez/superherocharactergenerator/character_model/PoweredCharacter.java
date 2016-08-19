@@ -12,6 +12,7 @@ public class PoweredCharacter extends Character {
     List<Power> mPowers;
     Origin mOrigin;
     Map<AbilityNamesEnum, Ability> mAbilityMap;
+    Weakness mWeakness;
 
     int mInitialAmountofPowers;
     int mCurrentAmountofPowers;
@@ -24,6 +25,12 @@ public class PoweredCharacter extends Character {
     int mInitialAmountofContacts;
     int mCurrentAmountofContacts;
     int mMaxAmountofContacts;
+
+    int mMaxHealth;
+    int mCurrentHealth;
+
+    int mMaxKarma;
+    int mCurrentKarma;
 
     public List<Power> getPowers() {
         return mPowers;
@@ -135,4 +142,57 @@ public class PoweredCharacter extends Character {
     public void setAbilityMap(Map<AbilityNamesEnum, Ability> abilityMap) {
         mAbilityMap = abilityMap;
     }
+
+    public Weakness getWeakness() {
+        return mWeakness;
+    }
+
+    public void setWeakness(Weakness weakness) {
+        mWeakness = weakness;
+    }
+
+    public int getMaxHealth() {
+        return mMaxHealth;
+    }
+
+    public void setMaxHealth() {
+
+        int fightingRank = mAbilityMap.get(AbilityNamesEnum.FIGHTING).getCurrentranknumber();
+        int agilityRank = mAbilityMap.get(AbilityNamesEnum.AGILITY).getCurrentranknumber();
+        int strengthRank = mAbilityMap.get(AbilityNamesEnum.STRENGTH).getCurrentranknumber();
+        int enduranceRank = mAbilityMap.get(AbilityNamesEnum.ENDURANCE).getCurrentranknumber();
+
+        mMaxHealth= fightingRank + agilityRank + strengthRank + enduranceRank;
+        setCurrentHealth(mMaxHealth);
+    }
+
+    public int getCurrentHealth() {
+        return mCurrentHealth;
+    }
+
+    public void setCurrentHealth(int currentHealth) {
+        mCurrentHealth = currentHealth;
+    }
+
+    public int getMaxKarma() {
+        return mMaxKarma;
+    }
+
+    public void setMaxKarma() {
+        int reasonRank = mAbilityMap.get(AbilityNamesEnum.REASON).getCurrentranknumber();
+        int intuitionRank = mAbilityMap.get(AbilityNamesEnum.INTUITION).getCurrentranknumber();
+        int psycheRank = mAbilityMap.get(AbilityNamesEnum.PSYCHE).getCurrentranknumber();
+        mMaxKarma = reasonRank + intuitionRank + psycheRank;
+        setCurrentKarma(mMaxKarma);
+    }
+
+    public int getCurrentKarma() {
+        return mCurrentKarma;
+    }
+
+    public void setCurrentKarma(int currentKarma) {
+        mCurrentKarma = currentKarma;
+    }
 }
+
+

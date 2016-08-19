@@ -60,6 +60,10 @@ public class CharacterFactory {
 
         character.setAbilityMap(databaseAccess.rollAbilities(character.getForm().getRandomRanksRollColumn()));
 
+        character.setWeakness(databaseAccess.rollWeakness());
+        character.setMaxHealth();
+        character.setMaxKarma();
+
         databaseAccess.close();
         return character;
     }
