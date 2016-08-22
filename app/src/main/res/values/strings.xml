@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">SuperHeroCharacterGenerator</string>
-    <string name="roll_a_character">Roll a Character!</string>
+    <string name="roll_a_character">Roll Character</string>
     <string name="origin">ORIGIN:</string>
     <string name="physical_form">PHYSICAL FORM:</string>
     <string name="subform">SUBFORM:</string>
@@ -16,4 +16,5 @@
     <string name="random">RANDOM</string>
     <string name="health">HEALTH:</string>
     <string name="karma">KARMA:</string>
+    <string name="save_character">Save Character</string>
 </resources>

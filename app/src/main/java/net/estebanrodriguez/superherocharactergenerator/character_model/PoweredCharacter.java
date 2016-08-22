@@ -1,6 +1,6 @@
 package net.estebanrodriguez.superherocharactergenerator.character_model;
 
-import net.estebanrodriguez.superherocharactergenerator.databasehelper.DatabaseValues;
+import net.estebanrodriguez.superherocharactergenerator.roll_tables_database.RollTablesContract;
 
 import java.util.List;
 import java.util.Map;
@@ -38,16 +38,16 @@ public class PoweredCharacter extends Character {
 
 
     public void setAmounts(Map<String, Integer> amounts){
-        setInitialAmountofPowers(amounts.get(DatabaseValues.COLUMN_POWERS_INITIAL));
-        setMaxAmountofPowers(amounts.get(DatabaseValues.COLUMN_POWERS_MAX));
+        setInitialAmountofPowers(amounts.get(RollTablesContract.COLUMN_POWERS_INITIAL));
+        setMaxAmountofPowers(amounts.get(RollTablesContract.COLUMN_POWERS_MAX));
         setCurrentAmountofPowers(mInitialAmountofPowers);
 
-        setInitialAmountofTalents(amounts.get(DatabaseValues.COLUMN_TALENTS_INITIAL));
-        setMaxAmountofTalents(amounts.get(DatabaseValues.COLUMN_TALENTS_MAX));
+        setInitialAmountofTalents(amounts.get(RollTablesContract.COLUMN_TALENTS_INITIAL));
+        setMaxAmountofTalents(amounts.get(RollTablesContract.COLUMN_TALENTS_MAX));
         setCurrentAmountOfTalents(mInitialAmountofTalents);
 
-        setInitialAmountofContacts(amounts.get(DatabaseValues.COLUMN_CONTACTS_INITIAL));
-        setMaxAmountofContacts(amounts.get(DatabaseValues.COLUMN_CONTACTS_MAX));
+        setInitialAmountofContacts(amounts.get(RollTablesContract.COLUMN_CONTACTS_INITIAL));
+        setMaxAmountofContacts(amounts.get(RollTablesContract.COLUMN_CONTACTS_MAX));
         setCurrentAmountofContacts(mInitialAmountofContacts);
     }
 

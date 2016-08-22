@@ -11,8 +11,10 @@ import android.widget.TextView;
 
 import net.estebanrodriguez.superherocharactergenerator.character_model.Ability;
 import net.estebanrodriguez.superherocharactergenerator.character_model.AbilityNamesEnum;
+import net.estebanrodriguez.superherocharactergenerator.character_model.Character;
 import net.estebanrodriguez.superherocharactergenerator.character_model.Power;
 import net.estebanrodriguez.superherocharactergenerator.character_model.PoweredCharacter;
+import net.estebanrodriguez.superherocharactergenerator.persistance.CharacterVaultOpenHelper;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -22,13 +24,18 @@ import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
     private CharacterFactory mCharacterFactory;
+    public PoweredCharacter mCharacter = null;
+    CharacterVaultOpenHelper mCharacterVaultOpenHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mCharacterVaultOpenHelper = new CharacterVaultOpenHelper(getApplicationContext());
+
         mCharacterFactory = new CharacterFactory(this);
         setContentView(R.layout.activity_main);
+
 
         //Get Layout References
         Button rollButton = (Button) findViewById(R.id.rollButton);
@@ -36,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         final TextView subFormTextView = (TextView)findViewById(R.id.textViewSubform);
         final TextView originTextView = (TextView)findViewById(R.id.textViewOrigin);
         final ListView listView = (ListView)findViewById(R.id.powersList);
-        final EditText editText = (EditText)findViewById(R.id.editName);
+        final TextView nameTextView = (TextView)findViewById(R.id.textViewName);
 
         final TextView abilityFightingTextView = (TextView)findViewById(R.id.textViewAbilityFighting);
         final TextView abilityAgilityTextView = (TextView)findViewById(R.id.textViewAbilityAgility);
@@ -54,13 +61,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                PoweredCharacter character = null;
 
                 CharacterRollerAsyncTask task = new CharacterRollerAsyncTask();
                 task.execute(mCharacterFactory);
 
                 try {
-                    character = task.get();
+                    mCharacter = task.get();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (ExecutionException e) {
@@ -69,18 +75,18 @@ public class MainActivity extends AppCompatActivity {
 
                 //Get power Data
                 List<String> powerData = new ArrayList<String>();
-                Iterator<Power> iterator = character.getPowers().iterator();
+                Iterator<Power> iterator = mCharacter.getPowers().iterator();
                 while(iterator.hasNext()){
                     powerData.add(iterator.next().getPowerName());
                 }
 
                 // update UI
-                physicalFormTextView.setText(character.getForm().getFormType());
-                subFormTextView.setText(character.getForm().getSubFormType());
-                originTextView.setText(character.getOrigin().getOrigin());
-                editText.setText(character.getCharacterName());
+                physicalFormTextView.setText(mCharacter.getForm().getFormType());
+                subFormTextView.setText(mCharacter.getForm().getSubFormType());
+                originTextView.setText(mCharacter.getOrigin().getOrigin());
+                nameTextView.setText(mCharacter.getCharacterName());
 
-                Map<AbilityNamesEnum, Ability> abilityMap= character.getAbilityMap();
+                Map<AbilityNamesEnum, Ability> abilityMap= mCharacter.getAbilityMap();
 
                 abilityFightingTextView.setText(abilityMap.get(AbilityNamesEnum.FIGHTING).getCurrentRankName());
                 abilityAgilityTextView.setText(abilityMap.get(AbilityNamesEnum.AGILITY).getCurrentRankName());
@@ -90,8 +96,8 @@ public class MainActivity extends AppCompatActivity {
                 abilityIntuitionTextView.setText(abilityMap.get(AbilityNamesEnum.INTUITION).getCurrentRankName());
                 abilityPsycheTextView.setText(abilityMap.get(AbilityNamesEnum.PSYCHE).getCurrentRankName());
 
-                Integer health = character.getCurrentHealth();
-                Integer karma = character.getCurrentKarma();
+                Integer health = mCharacter.getCurrentHealth();
+                Integer karma = mCharacter.getCurrentKarma();
 
                 abilityHealthTextView.setText(health.toString());
                 abilityKarmaTextView.setText(karma.toString());
@@ -111,6 +117,11 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
+    }
+
+    public void saveCharacter(Character character){
 
 
     }

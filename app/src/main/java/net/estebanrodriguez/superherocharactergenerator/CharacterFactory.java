@@ -6,7 +6,7 @@ import android.util.Log;
 import net.estebanrodriguez.superherocharactergenerator.character_model.Character;
 import net.estebanrodriguez.superherocharactergenerator.character_model.Power;
 import net.estebanrodriguez.superherocharactergenerator.character_model.PoweredCharacter;
-import net.estebanrodriguez.superherocharactergenerator.databasehelper.DatabaseAccess;
+import net.estebanrodriguez.superherocharactergenerator.roll_tables_database.DatabaseAccess;
 import net.estebanrodriguez.superherocharactergenerator.utilities.DieRoller;
 
 import java.util.ArrayList;
@@ -54,7 +54,14 @@ public class CharacterFactory {
         List<Power> powers = new ArrayList<>();
         for(int i =0; i < character.getInitialAmountofPowers(); i++){
             Map<String, String> map = databaseAccess.rollPowerClass(DieRoller.roll(100));
-            powers.add(databaseAccess.rollPower(DieRoller.roll(100), map));
+            Power newPower = databaseAccess.rollPower(DieRoller.roll(100), map);
+            List<String> powerNames = new ArrayList<>();
+            for(Power power: powers){
+                powerNames.add(power.getPowerName());
+            }
+            if(!powerNames.contains(newPower.getPowerName())){
+                powers.add(newPower);
+            }
         }
         character.setPowers(powers);
 

@@ -1,9 +1,12 @@
-package net.estebanrodriguez.superherocharactergenerator.databasehelper;
+package net.estebanrodriguez.superherocharactergenerator.roll_tables_database;
 
 /**
  * Created by Esteban Rodriguez on 8/17/2016.
  */
-public class DatabaseValues {
+public final class RollTablesContract {
+
+    public RollTablesContract() {
+    }
 
     //tables
     public static final String TABLE_NUMBER_OF_POWERS = "number_of_powers";

@@ -1,11 +1,12 @@
 package net.estebanrodriguez.superherocharactergenerator.character_model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Tara on 8/10/2016.
  */
-public class Character {
+public class Character implements Serializable{
 
     private int mCharacterID;
     private String mCharacterName;
