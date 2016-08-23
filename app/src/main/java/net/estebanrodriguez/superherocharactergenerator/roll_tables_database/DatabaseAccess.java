@@ -3,6 +3,7 @@ package net.estebanrodriguez.superherocharactergenerator.roll_tables_database;
 /**
  * Created by Esteban Rodriguez on 8/12/2016.
  */
+
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,11 +12,11 @@ import android.util.Log;
 
 import net.estebanrodriguez.superherocharactergenerator.character_model.Ability;
 import net.estebanrodriguez.superherocharactergenerator.character_model.AbilityNamesEnum;
-import net.estebanrodriguez.superherocharactergenerator.character_model.Weakness;
-import net.estebanrodriguez.superherocharactergenerator.utilities.DieRoller;
 import net.estebanrodriguez.superherocharactergenerator.character_model.Origin;
 import net.estebanrodriguez.superherocharactergenerator.character_model.PhysicalForm;
 import net.estebanrodriguez.superherocharactergenerator.character_model.Power;
+import net.estebanrodriguez.superherocharactergenerator.character_model.Weakness;
+import net.estebanrodriguez.superherocharactergenerator.utilities.DieRoller;
 
 import java.util.HashMap;
 import java.util.Map;

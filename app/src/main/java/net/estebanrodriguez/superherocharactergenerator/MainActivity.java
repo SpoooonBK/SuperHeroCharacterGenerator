@@ -1,7 +1,7 @@
 package net.estebanrodriguez.superherocharactergenerator;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -14,8 +14,7 @@ import net.estebanrodriguez.superherocharactergenerator.character_model.AbilityN
 import net.estebanrodriguez.superherocharactergenerator.character_model.Character;
 import net.estebanrodriguez.superherocharactergenerator.character_model.Power;
 import net.estebanrodriguez.superherocharactergenerator.character_model.PoweredCharacter;
-import net.estebanrodriguez.superherocharactergenerator.persistance.CharacterVault;
-import net.estebanrodriguez.superherocharactergenerator.persistance.CharacterVaultOpenHelper;
+import net.estebanrodriguez.superherocharactergenerator.persistence.CharacterVault;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -27,13 +26,11 @@ public class MainActivity extends AppCompatActivity {
     private CharacterFactory mCharacterFactory;
     private CharacterVault mCharacterVault;
     public PoweredCharacter mCharacter = null;
-    CharacterVaultOpenHelper mCharacterVaultOpenHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mCharacterVaultOpenHelper = new CharacterVaultOpenHelper(getApplicationContext());
 
         mCharacterFactory = new CharacterFactory(this);
         mCharacterVault = new CharacterVault(this);

@@ -1,4 +1,4 @@
-package net.estebanrodriguez.superherocharactergenerator.persistance;
+package net.estebanrodriguez.superherocharactergenerator.persistence;
 
 import net.estebanrodriguez.superherocharactergenerator.character_model.Character;
 import net.estebanrodriguez.superherocharactergenerator.character_model.PoweredCharacter;

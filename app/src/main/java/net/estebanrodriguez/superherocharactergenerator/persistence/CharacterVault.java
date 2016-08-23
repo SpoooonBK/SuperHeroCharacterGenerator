@@ -1,4 +1,4 @@
-package net.estebanrodriguez.superherocharactergenerator.persistance;
+package net.estebanrodriguez.superherocharactergenerator.persistence;
 
 import android.content.Context;
 

@@ -1,13 +1,10 @@
 package net.estebanrodriguez.superherocharactergenerator.utilities;
 
 import net.estebanrodriguez.superherocharactergenerator.CharacterFactory;
-import net.estebanrodriguez.superherocharactergenerator.CharacterRollerAsyncTask;
-import net.estebanrodriguez.superherocharactergenerator.character_model.Character;
 import net.estebanrodriguez.superherocharactergenerator.character_model.PoweredCharacter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Esteban Rodriguez on 8/18/2016.

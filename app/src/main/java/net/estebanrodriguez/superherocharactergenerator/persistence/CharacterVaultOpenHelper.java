@@ -1,13 +1,9 @@
-package net.estebanrodriguez.superherocharactergenerator.persistance;
+package net.estebanrodriguez.superherocharactergenerator.persistence;
 
 import android.content.Context;
-import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.database.sqlite.SQLiteQuery;
-import android.database.sqlite.SQLiteQueryBuilder;
-
-import net.estebanrodriguez.superherocharactergenerator.roll_tables_database.RollTablesContract;
+import android.util.Log;
 
 /**
  * Created by Esteban Rodriguez on 8/22/2016.
@@ -22,7 +18,6 @@ public class CharacterVaultOpenHelper extends SQLiteOpenHelper{
     private static final String TEXT_TYPE = " TEXT";
     private static final String INTEGER_TYPE = " INTEGER";
     private static final String COMMA_SEP = ", ";
-    private static final String SPACE = " ";
     private String SQL_CREATE_STATEMENT;
     private final String SQL_PARTIAL_CREATE_STATEMENT =
                     CharacterVaultContract.CharacterTable.COLUMN_CHARACTER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT" + COMMA_SEP +
@@ -76,6 +71,8 @@ public class CharacterVaultOpenHelper extends SQLiteOpenHelper{
                     CharacterVaultContract.CharacterTable.COLUMN_CONTACTS_INITIAL_AMOUNT + INTEGER_TYPE + COMMA_SEP +
                     CharacterVaultContract.CharacterTable.COLUMN_CONTACTS_CURRENT_AMOUNT + INTEGER_TYPE + COMMA_SEP +
                     CharacterVaultContract.CharacterTable.COLUMN_CONTACTS_MAX_AMOUNT + INTEGER_TYPE + COMMA_SEP +
+                            CharacterVaultContract.CharacterTable.COLUMN_KARMA_CURRENT + INTEGER_TYPE+ COMMA_SEP +
+                            CharacterVaultContract.CharacterTable.COLUMN_HEALTH_CURRENT + INTEGER_TYPE +
                     ")";
 
     private static final String SQL_DELETE_ENTRIES =
@@ -87,11 +84,11 @@ public class CharacterVaultOpenHelper extends SQLiteOpenHelper{
         StringBuilder powerStringBuilder = new StringBuilder();
         for (int i = 0; i < 18; i++){
             powerStringBuilder.append(CharacterVaultContract.CharacterTable.COLUMN_BASE_POWER_NAME + i);
-            powerStringBuilder.append(SPACE + INTEGER_TYPE + COMMA_SEP);
+            powerStringBuilder.append(INTEGER_TYPE + COMMA_SEP);
             powerStringBuilder.append(CharacterVaultContract.CharacterTable.COLUMN_BASE_POWER_CLASS + i);
-            powerStringBuilder.append(SPACE + INTEGER_TYPE + COMMA_SEP);
+            powerStringBuilder.append(INTEGER_TYPE + COMMA_SEP);
             powerStringBuilder.append(CharacterVaultContract.CharacterTable.COLUMN_BASE_POWER_CODE + i);
-            powerStringBuilder.append(SPACE + INTEGER_TYPE + COMMA_SEP);
+            powerStringBuilder.append(INTEGER_TYPE + COMMA_SEP);
         }
         String powerTableString = powerStringBuilder.toString();
 
@@ -111,6 +108,7 @@ public class CharacterVaultOpenHelper extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        Log.d("HERO", SQL_CREATE_STATEMENT);
         db.execSQL(SQL_CREATE_STATEMENT);
 
 

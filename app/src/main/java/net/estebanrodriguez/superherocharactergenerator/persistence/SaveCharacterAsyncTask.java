@@ -1,4 +1,4 @@
-package net.estebanrodriguez.superherocharactergenerator.persistance;
+package net.estebanrodriguez.superherocharactergenerator.persistence;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -10,8 +10,6 @@ import net.estebanrodriguez.superherocharactergenerator.character_model.AbilityN
 import net.estebanrodriguez.superherocharactergenerator.character_model.Character;
 import net.estebanrodriguez.superherocharactergenerator.character_model.Power;
 import net.estebanrodriguez.superherocharactergenerator.character_model.PoweredCharacter;
-import net.estebanrodriguez.superherocharactergenerator.persistance.CharacterVaultContract;
-import net.estebanrodriguez.superherocharactergenerator.persistance.CharacterVaultOpenHelper;
 
 import java.util.List;
 import java.util.Map;

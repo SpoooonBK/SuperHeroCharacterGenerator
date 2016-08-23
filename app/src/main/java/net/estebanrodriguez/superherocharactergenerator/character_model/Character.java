@@ -1,7 +1,6 @@
 package net.estebanrodriguez.superherocharactergenerator.character_model;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Created by Tara on 8/10/2016.
