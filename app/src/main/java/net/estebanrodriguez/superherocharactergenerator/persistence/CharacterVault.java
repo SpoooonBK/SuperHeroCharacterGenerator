@@ -21,6 +21,9 @@ public class CharacterVault implements CharacterVaultDAO {
 
     @Override
     public List<Character> getAllCharacters() {
+        GetCharacterListTask getCharacterListTask = new GetCharacterListTask();
+        getCharacterListTask.execute(mContext);
+
         return null;
     }
 
@@ -38,6 +41,11 @@ public class CharacterVault implements CharacterVaultDAO {
     public long saveCharacter(Character character) throws ExecutionException, InterruptedException {
         SaveCharacterAsyncTask saveCharacterAsyncTask = new SaveCharacterAsyncTask(mContext);
         saveCharacterAsyncTask.execute(character);
+
+        //REMOVE
+        getAllCharacters();
+        //REMOVE
+
         return saveCharacterAsyncTask.get();
     }
 

@@ -183,6 +183,7 @@ public class SaveCharacterAsyncTask extends AsyncTask<Character, Void, Long> {
 
         Long l = mDatabase.insert(CharacterVaultContract.CharacterTable.CHARACTER_TABLE, null, values);
         Log.d("HERO", "CHARACTER SAVED with ID: " + l.toString());
+        mDatabase.close();
 
         return l;
 
