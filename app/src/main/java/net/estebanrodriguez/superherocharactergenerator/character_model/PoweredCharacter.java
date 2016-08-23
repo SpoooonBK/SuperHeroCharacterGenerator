@@ -95,7 +95,7 @@ public class PoweredCharacter extends Character {
         mInitialAmountofTalents = initialAmountofTalents;
     }
 
-    public int getCurrentAmountOfTalents() {
+    public int getCurrentAmountofTalents() {
         return mCurrentAmountOfTalents;
     }
 
@@ -154,6 +154,7 @@ public class PoweredCharacter extends Character {
     public int getMaxHealth() {
         return mMaxHealth;
     }
+
 
     public void setMaxHealth() {
 
