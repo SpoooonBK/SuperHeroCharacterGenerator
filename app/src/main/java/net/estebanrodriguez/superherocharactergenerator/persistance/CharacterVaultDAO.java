@@ -4,6 +4,7 @@ import net.estebanrodriguez.superherocharactergenerator.character_model.Characte
 import net.estebanrodriguez.superherocharactergenerator.character_model.PoweredCharacter;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Esteban Rodriguez on 8/22/2016.
@@ -13,7 +14,7 @@ public interface CharacterVaultDAO {
     public List<Character> getAllCharacters();
     public PoweredCharacter getPoweredCharacter();
     public Character getCharacter();
-    public void saveCharacter(Character character);
+    public long saveCharacter(Character character) throws ExecutionException, InterruptedException;
     public void updateCharacter(int characterID);
 }
 

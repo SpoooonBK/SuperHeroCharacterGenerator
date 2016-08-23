@@ -2,12 +2,11 @@ package net.estebanrodriguez.superherocharactergenerator.persistance;
 
 import android.content.Context;
 
-import net.estebanrodriguez.superherocharactergenerator.CharacterRollerAsyncTask;
-import net.estebanrodriguez.superherocharactergenerator.SaveCharacterAsyncTask;
 import net.estebanrodriguez.superherocharactergenerator.character_model.Character;
 import net.estebanrodriguez.superherocharactergenerator.character_model.PoweredCharacter;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Esteban Rodriguez on 8/22/2016.
@@ -36,9 +35,10 @@ public class CharacterVault implements CharacterVaultDAO {
     }
 
     @Override
-    public void saveCharacter(Character character) {
+    public long saveCharacter(Character character) throws ExecutionException, InterruptedException {
         SaveCharacterAsyncTask saveCharacterAsyncTask = new SaveCharacterAsyncTask(mContext);
         saveCharacterAsyncTask.execute(character);
+        return saveCharacterAsyncTask.get();
     }
 
     @Override

@@ -219,13 +219,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/save_character"
-                android:id="@+id/saveButton"/>
+                android:id="@+id/buttonSave"/>
             <Button
                 android:layout_margin="2dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/roll_a_character"
-                android:id="@+id/rollButton"/>
+                android:id="@+id/buttonRoll"/>
 
 
     </LinearLayout>

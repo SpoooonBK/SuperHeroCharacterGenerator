@@ -7,12 +7,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import net.estebanrodriguez.superherocharactergenerator.character_model.Ability;
 import net.estebanrodriguez.superherocharactergenerator.character_model.AbilityNamesEnum;
 import net.estebanrodriguez.superherocharactergenerator.character_model.Character;
 import net.estebanrodriguez.superherocharactergenerator.character_model.Power;
 import net.estebanrodriguez.superherocharactergenerator.character_model.PoweredCharacter;
+import net.estebanrodriguez.superherocharactergenerator.persistance.CharacterVault;
 import net.estebanrodriguez.superherocharactergenerator.persistance.CharacterVaultOpenHelper;
 
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
     private CharacterFactory mCharacterFactory;
+    private CharacterVault mCharacterVault;
     public PoweredCharacter mCharacter = null;
     CharacterVaultOpenHelper mCharacterVaultOpenHelper;
 
@@ -33,11 +36,13 @@ public class MainActivity extends AppCompatActivity {
         mCharacterVaultOpenHelper = new CharacterVaultOpenHelper(getApplicationContext());
 
         mCharacterFactory = new CharacterFactory(this);
+        mCharacterVault = new CharacterVault(this);
         setContentView(R.layout.activity_main);
 
 
         //Get Layout References
-        Button rollButton = (Button) findViewById(R.id.rollButton);
+        Button rollButton = (Button) findViewById(R.id.buttonRoll);
+        Button saveButton = (Button) findViewById(R.id.buttonSave);
         final TextView physicalFormTextView = (TextView)findViewById(R.id.textviewPhysicalForm);
         final TextView subFormTextView = (TextView)findViewById(R.id.textViewSubform);
         final TextView originTextView = (TextView)findViewById(R.id.textViewOrigin);
@@ -54,13 +59,11 @@ public class MainActivity extends AppCompatActivity {
         final TextView abilityKarmaTextView = (TextView) findViewById(R.id.textViewAbilityKarma);
         final TextView abilityHealthTextView = (TextView) findViewById(R.id.textViewAbilityHealth);
 
-
+//SET UP ROLL BUTTON
 
         rollButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 CharacterRollerAsyncTask task = new CharacterRollerAsyncTask();
                 task.execute(mCharacterFactory);
 
@@ -114,9 +117,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+//SET UP SAVE BUTTON
 
-
-
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    long l = mCharacterVault.saveCharacter(mCharacter);
+                    Toast toast = Toast.makeText(getApplicationContext(), "Character saved under ID " + l, Toast.LENGTH_SHORT);
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
     }
 

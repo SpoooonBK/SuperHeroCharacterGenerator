@@ -15,6 +15,7 @@ public final class CharacterVaultContract {
         public static final String COLUMN_NAME = "name";
         public static final String COLUMN_FORM = "form";
         public static final String COLUMN_SUBFORM = "subform";
+        public static final String COLUMN_ORIGIN = "origin";
 
         public static final String COLUMN_FIGHTING_INITIAL_RANK_NAME = "ability_fighting_initial_rank_name";
         public static final String COLUMN_FIGHTING_CURRENT_RANK_NAME = "ability_fighting_current_rank_name";
@@ -66,7 +67,10 @@ public final class CharacterVaultContract {
         public static final String COLUMN_HEALTH_CURRENT = "health_current";
         public static final String COLUMN_KARMA_CURRENT = "karma_current";
 
-        public static final String COLUMN_ORIGIN = "origin";
+        public static final String COLUMN_BASE_POWER_NAME = "power_name_";
+        public static final String COLUMN_BASE_POWER_CLASS = "power_class_";
+        public static final String COLUMN_BASE_POWER_CODE = "power_code_";
+
         
     }
 

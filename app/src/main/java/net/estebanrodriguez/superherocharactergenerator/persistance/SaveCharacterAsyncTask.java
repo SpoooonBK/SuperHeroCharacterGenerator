@@ -1,4 +1,4 @@
-package net.estebanrodriguez.superherocharactergenerator;
+package net.estebanrodriguez.superherocharactergenerator.persistance;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -162,9 +162,9 @@ public class SaveCharacterAsyncTask extends AsyncTask<Character, Void, Long> {
         List<Power> powers = character.getPowers();
         int count = 0;
         for(Power power: powers){
-            String powerNameColumn = "power_name_" + count;
-            String powerClassColumn = "power_class_" + count;
-            String powerCodeColumn = "power_code_" + count;
+            String powerNameColumn = CharacterVaultContract.CharacterTable.COLUMN_BASE_POWER_NAME + count;
+            String powerClassColumn = CharacterVaultContract.CharacterTable.COLUMN_BASE_POWER_CLASS + count;
+            String powerCodeColumn = CharacterVaultContract.CharacterTable.COLUMN_BASE_POWER_CODE + count;
 //            String powerDescriptionColumn = "power_description_"+ count;
 
 //            String powerName = power.getPowerName();
