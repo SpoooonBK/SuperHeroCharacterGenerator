@@ -2,8 +2,10 @@ package net.estebanrodriguez.superherocharactergenerator.persistence;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import net.estebanrodriguez.superherocharactergenerator.character_model.Ability;
 import net.estebanrodriguez.superherocharactergenerator.character_model.AbilityNamesEnum;
@@ -31,6 +33,9 @@ public class SaveCharacterAsyncTask extends AsyncTask<Character, Void, Long> {
         PoweredCharacter character = (PoweredCharacter)characters[0];
         CharacterVaultOpenHelper vaultOpenHelper = new CharacterVaultOpenHelper(mContext);
         mDatabase = vaultOpenHelper.getWritableDatabase();
+
+
+        Log.d("HERO","DATABASE PATH: " + mDatabase.getPath());
         return savePoweredCharacter(character);
     }
 
@@ -176,7 +181,10 @@ public class SaveCharacterAsyncTask extends AsyncTask<Character, Void, Long> {
 
         }
 
-        return mDatabase.insert(CharacterVaultContract.CharacterTable.CHARACTER_TABLE, null, values);
+        Long l = mDatabase.insert(CharacterVaultContract.CharacterTable.CHARACTER_TABLE, null, values);
+        Log.d("HERO", "CHARACTER SAVED with ID: " + l.toString());
+
+        return l;
 
     }
 

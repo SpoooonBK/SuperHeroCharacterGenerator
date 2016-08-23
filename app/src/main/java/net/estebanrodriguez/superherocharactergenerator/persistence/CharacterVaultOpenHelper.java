@@ -21,7 +21,8 @@ public class CharacterVaultOpenHelper extends SQLiteOpenHelper{
     private String SQL_CREATE_STATEMENT;
     private final String SQL_PARTIAL_CREATE_STATEMENT =
                     CharacterVaultContract.CharacterTable.COLUMN_CHARACTER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT" + COMMA_SEP +
-                    CharacterVaultContract.CharacterTable.COLUMN_FORM + TEXT_TYPE + COMMA_SEP +
+                            CharacterVaultContract.CharacterTable.COLUMN_NAME + TEXT_TYPE + COMMA_SEP +
+                            CharacterVaultContract.CharacterTable.COLUMN_FORM + TEXT_TYPE + COMMA_SEP +
                     CharacterVaultContract.CharacterTable.COLUMN_SUBFORM + TEXT_TYPE + COMMA_SEP +
                     CharacterVaultContract.CharacterTable.COLUMN_ORIGIN + TEXT_TYPE + COMMA_SEP +
 

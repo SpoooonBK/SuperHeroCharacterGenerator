@@ -122,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     long l = mCharacterVault.saveCharacter(mCharacter);
                     Toast toast = Toast.makeText(getApplicationContext(), "Character saved under ID " + l, Toast.LENGTH_SHORT);
+                    toast.show();
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {
