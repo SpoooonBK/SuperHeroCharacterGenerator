@@ -11,7 +11,7 @@ public class Origin {
         mOrigin = origin;
     }
 
-    public String getOrigin() {
+    public String getOriginString() {
         return mOrigin;
     }
 

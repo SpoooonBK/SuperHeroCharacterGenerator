@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -83,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 // update UI
                 physicalFormTextView.setText(mCharacter.getForm().getFormType());
                 subFormTextView.setText(mCharacter.getForm().getSubFormType());
-                originTextView.setText(mCharacter.getOrigin().getOrigin());
+                originTextView.setText(mCharacter.getOrigin().getOriginString());
                 nameTextView.setText(mCharacter.getCharacterName());
 
                 Map<AbilityNamesEnum, Ability> abilityMap= mCharacter.getAbilityMap();

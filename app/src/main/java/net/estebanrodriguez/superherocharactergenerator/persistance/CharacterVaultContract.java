@@ -51,6 +51,22 @@ public final class CharacterVaultContract {
         public static final String COLUMN_PSYCHE_INITIAL_RANK_NUMBER = "ability_psyche_initial_rank_number";
         public static final String COLUMN_PSYCHE_CURRENT_RANK_NUMBER = "ability_psyche_current_rank_number";
         
+        public static final String COLUMN_POWERS_INITIAL_AMOUNT = "powers_initial_amount";
+        public static final String COLUMN_POWERS_MAX_AMOUNT = "powers_max_amount";
+        public static final String COLUMN_POWERS_CURRENT_AMOUNT = "powers_current_amount";
+
+        public static final String COLUMN_TALENTS_INITIAL_AMOUNT = "talents_initial_amount";
+        public static final String COLUMN_TALENTS_MAX_AMOUNT = "talents_max_amount";
+        public static final String COLUMN_TALENTS_CURRENT_AMOUNT = "talents_current_amount";
+
+        public static final String COLUMN_CONTACTS_INITIAL_AMOUNT = "contacts_initial_amount";
+        public static final String COLUMN_CONTACTS_MAX_AMOUNT = "contacts_max_amount";
+        public static final String COLUMN_CONTACTS_CURRENT_AMOUNT = "contacts_current_amount";
+
+        public static final String COLUMN_HEALTH_CURRENT = "health_current";
+        public static final String COLUMN_KARMA_CURRENT = "karma_current";
+
+        public static final String COLUMN_ORIGIN = "origin";
         
     }
 

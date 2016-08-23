@@ -1,29 +1,25 @@
 package net.estebanrodriguez.superherocharactergenerator;
 
-import android.app.DownloadManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteQueryBuilder;
 import android.os.AsyncTask;
 
 import net.estebanrodriguez.superherocharactergenerator.character_model.Ability;
 import net.estebanrodriguez.superherocharactergenerator.character_model.AbilityNamesEnum;
 import net.estebanrodriguez.superherocharactergenerator.character_model.Character;
-import net.estebanrodriguez.superherocharactergenerator.character_model.Origin;
 import net.estebanrodriguez.superherocharactergenerator.character_model.Power;
 import net.estebanrodriguez.superherocharactergenerator.character_model.PoweredCharacter;
 import net.estebanrodriguez.superherocharactergenerator.persistance.CharacterVaultContract;
 import net.estebanrodriguez.superherocharactergenerator.persistance.CharacterVaultOpenHelper;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Created by Esteban Rodriguez on 8/22/2016.
  */
-public class SaveCharacterAsyncTask extends AsyncTask<Character, Void, Boolean> {
+public class SaveCharacterAsyncTask extends AsyncTask<Character, Void, Long> {
 
     Context mContext;
     SQLiteDatabase mDatabase;
@@ -33,26 +29,24 @@ public class SaveCharacterAsyncTask extends AsyncTask<Character, Void, Boolean> 
     }
 
     @Override
-    protected Boolean doInBackground(Character... characters) {
-
+    protected Long doInBackground(Character... characters) {
+        PoweredCharacter character = (PoweredCharacter)characters[0];
         CharacterVaultOpenHelper vaultOpenHelper = new CharacterVaultOpenHelper(mContext);
-
         mDatabase = vaultOpenHelper.getWritableDatabase();
-
-        return null;
+        return savePoweredCharacter(character);
     }
 
-    private void saveCharacter(PoweredCharacter character){
+    private long savePoweredCharacter(PoweredCharacter character){
 
         ContentValues values = new ContentValues();
+//
+//        String name = character.getCharacterName();
+//        String form = character.getForm().getFormType();
+//        String subform = character.getForm().getSubFormType();
 
-        String name = character.getCharacterName();
-        String form = character.getForm().getFormType();
-        String subform = character.getForm().getSubFormType();
-
-        values.put(CharacterVaultContract.CharacterTable.COLUMN_NAME, name);
-        values.put(CharacterVaultContract.CharacterTable.COLUMN_FORM, form);
-        values.put(CharacterVaultContract.CharacterTable.COLUMN_SUBFORM, subform);
+        values.put(CharacterVaultContract.CharacterTable.COLUMN_NAME, character.getCharacterName());
+        values.put(CharacterVaultContract.CharacterTable.COLUMN_FORM, character.getForm().getFormType());
+        values.put(CharacterVaultContract.CharacterTable.COLUMN_SUBFORM, character.getForm().getSubFormType());
 
         Map<AbilityNamesEnum, Ability> abilityMap = character.getAbilityMap();
         Ability fighting = abilityMap.get(AbilityNamesEnum.FIGHTING);
@@ -130,23 +124,40 @@ public class SaveCharacterAsyncTask extends AsyncTask<Character, Void, Boolean> 
 //        String psycheCurrentRank = psyche.getCurrentRankName();
 //        int psycheInitialRankNumber = psyche.getInitialRankNumber();
 //        int psycheCurrentRankNUmber = psyche.getCurrentranknumber();
+//
+//        int initialAmountofPowers = character.getInitialAmountofPowers();
+//        int currentAmountofPowers = character.getCurrentAmountofPowers();
+//        int maxAmountofPowers = character.getMaxAmountofPowers();
+        
+        values.put(CharacterVaultContract.CharacterTable.COLUMN_POWERS_INITIAL_AMOUNT,character.getInitialAmountofPowers());
+        values.put(CharacterVaultContract.CharacterTable.COLUMN_POWERS_MAX_AMOUNT,character.getMaxAmountofPowers());
+        values.put(CharacterVaultContract.CharacterTable.COLUMN_POWERS_CURRENT_AMOUNT, character.getCurrentAmountofPowers());
 
-        int initialAmountofPowers = character.getInitialAmountofPowers();
-        int currentAmountofPowers = character.getCurrentAmountofPowers();
-        int maxAmountofPowers = character.getMaxAmountofPowers();
+//        int initialAmountofContacts = character.getInitialAmountofContacts();
+//        int currentAmountofContacts = character.getCurrentAmountofContacts();
+//        int maxAmountofContacts = character.getMaxAmountofContacts();
 
-        int initialAmountofContacts = character.getInitialAmountofContacts();
-        int currentAmountofContacts = character.getCurrentAmountofContacts();
-        int maxAmountofContacts = character.getMaxAmountofContacts();
+        values.put(CharacterVaultContract.CharacterTable.COLUMN_CONTACTS_INITIAL_AMOUNT,character.getInitialAmountofContacts());
+        values.put(CharacterVaultContract.CharacterTable.COLUMN_CONTACTS_MAX_AMOUNT,character.getMaxAmountofContacts());
+        values.put(CharacterVaultContract.CharacterTable.COLUMN_CONTACTS_CURRENT_AMOUNT, character.getCurrentAmountofContacts());
 
-        int initialAmountofTalents = character.getInitialAmountofTalents();
-        int currentAmountofTalents = character.getCurrentAmountofTalents();
-        int maxAmountofTalents = character.getMaxAmountofTalents();
+//        int initialAmountofTalents = character.getInitialAmountofTalents();
+//        int currentAmountofTalents = character.getCurrentAmountofTalents();
+//        int maxAmountofTalents = character.getMaxAmountofTalents();
 
-        int currentHealth = character.getCurrentHealth();
-        int currentKarma = character.getCurrentKarma();
+        values.put(CharacterVaultContract.CharacterTable.COLUMN_TALENTS_INITIAL_AMOUNT,character.getInitialAmountofTalents());
+        values.put(CharacterVaultContract.CharacterTable.COLUMN_TALENTS_MAX_AMOUNT,character.getMaxAmountofTalents());
+        values.put(CharacterVaultContract.CharacterTable.COLUMN_TALENTS_CURRENT_AMOUNT, character.getCurrentAmountofTalents());
 
-        String origin = character.getOrigin().getOrigin();
+//        int currentHealth = character.getCurrentHealth();
+//        int currentKarma = character.getCurrentKarma();
+
+        values.put(CharacterVaultContract.CharacterTable.COLUMN_HEALTH_CURRENT, character.getCurrentHealth());
+        values.put(CharacterVaultContract.CharacterTable.COLUMN_KARMA_CURRENT, character.getCurrentKarma());
+
+//        String origin = character.getOrigin().getOriginString();
+
+        values.put(CharacterVaultContract.CharacterTable.COLUMN_ORIGIN, character.getOrigin().getOriginString());
 
         List<Power> powers = character.getPowers();
         int count = 0;
@@ -156,15 +167,18 @@ public class SaveCharacterAsyncTask extends AsyncTask<Character, Void, Boolean> 
             String powerCodeColumn = "power_code_" + count;
 //            String powerDescriptionColumn = "power_description_"+ count;
 
-            String powerName = power.getPowerName();
-            String powerClass = power.getPowerClass();
-            String powerCode = power.getPowerCode();
+//            String powerName = power.getPowerName();
+//            String powerClass = power.getPowerClass();
+//            String powerCode = power.getPowerCode();
+
+            values.put(powerNameColumn, power.getPowerName());
+            values.put(powerClassColumn, power.getPowerClass());
+            values.put(powerCodeColumn, power.getPowerCode());
 //            String powerDescription = power.getPowerDescription();
 
         }
 
-
-
+        return mDatabase.insert(CharacterVaultContract.CharacterTable.CHARACTER_TABLE, null, values);
 
     }
 
