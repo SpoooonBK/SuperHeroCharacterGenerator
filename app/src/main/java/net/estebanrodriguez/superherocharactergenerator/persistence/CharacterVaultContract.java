@@ -13,8 +13,11 @@ public final class CharacterVaultContract {
         public static final String CHARACTER_TABLE = "characters";
         public static final String COLUMN_CHARACTER_ID ="id_character";
         public static final String COLUMN_NAME = "name";
+
         public static final String COLUMN_FORM = "form";
         public static final String COLUMN_SUBFORM = "subform";
+        public static final String COLUMN_RANDOM_RANKS_ROLL_COL ="random_ranks_roll_column";
+
         public static final String COLUMN_ORIGIN = "origin";
 
         public static final String COLUMN_FIGHTING_INITIAL_RANK_NAME = "ability_fighting_initial_rank_name";

@@ -78,28 +78,30 @@ public class DatabaseAccess {
     public PhysicalForm rollForm(int roll) {
         Log.d ("HERO", "Roll: " + roll);
         String query = "SELECT "
-                + RollTablesContract.COLUMN_FORM +
-                ", " + RollTablesContract.COLUMN_SUBFORM +
-                ", " + RollTablesContract.COLUMN_RANDOM_RANKS_ROLL_COL +
-                " FROM " + RollTablesContract.TABLE_PHYSICAL_FORM +
+                + RollTablesContract.PhysicalFormTable.COLUMN_FORM +
+                ", " + RollTablesContract.PhysicalFormTable.COLUMN_SUBFORM +
+                ", " + RollTablesContract.PhysicalFormTable.COLUMN_RANDOM_RANKS_ROLL_COL +
+                ", " + RollTablesContract.PhysicalFormTable.COLUMN_FORM_ID +
+                " FROM " + RollTablesContract.PhysicalFormTable.TABLE_PHYSICAL_FORM +
                 " WHERE " + RollTablesContract.COLUMN_LOW_ROLL + " <= " + roll + " AND " +
                 RollTablesContract.COLUMN_HIGH_ROLL + " >= " + roll;
 
 
         Cursor cursor = database.rawQuery(query, null);
         cursor.moveToFirst();
-        String form = cursor.getString(cursor.getColumnIndex(RollTablesContract.COLUMN_FORM));
-        String subform = cursor.getString(cursor.getColumnIndex(RollTablesContract.COLUMN_SUBFORM));
-        int rollColumn = cursor.getInt(cursor.getColumnIndex(RollTablesContract.COLUMN_RANDOM_RANKS_ROLL_COL));
+        String form = cursor.getString(cursor.getColumnIndex(RollTablesContract.PhysicalFormTable.COLUMN_FORM));
+        String subform = cursor.getString(cursor.getColumnIndex(RollTablesContract.PhysicalFormTable.COLUMN_SUBFORM));
+        int rollColumn = cursor.getInt(cursor.getColumnIndex(RollTablesContract.PhysicalFormTable.COLUMN_RANDOM_RANKS_ROLL_COL));
+        int formID = cursor.getInt(cursor.getColumnIndex(RollTablesContract.PhysicalFormTable.COLUMN_FORM_ID));
 
         cursor.close();
-        return new PhysicalForm(form, subform, rollColumn);
+        return new PhysicalForm(form, subform, rollColumn, formID);
     }
 
     public Origin rollOrigin(int roll) {
         String query = "SELECT " +
                 RollTablesContract.COLUMN_ORIGIN +
-                " FROM " + RollTablesContract.TABLE_ORIGIN +
+                " FROM " + RollTablesContract.RandomRanksTable.TABLE_ORIGIN +
                 " WHERE " + RollTablesContract.COLUMN_LOW_ROLL + " <= " + roll + " AND " +
                 RollTablesContract.COLUMN_HIGH_ROLL + " >= " + roll;
 
@@ -113,13 +115,13 @@ public class DatabaseAccess {
     public Map<String, Integer> rollAmounts(int roll) {
         Map<String, Integer> map = new HashMap<>();
         String query = "SELECT " +
-                RollTablesContract.COLUMN_POWERS_INITIAL +
-                ", " + RollTablesContract.COLUMN_POWERS_MAX +
-                ", " + RollTablesContract.COLUMN_TALENTS_INITIAL +
-                ", " + RollTablesContract.COLUMN_TALENTS_MAX +
-                ", " + RollTablesContract.COLUMN_CONTACTS_INITIAL +
-                ", " + RollTablesContract.COLUMN_CONTACTS_MAX +
-                " FROM " + RollTablesContract.TABLE_NUMBER_OF_POWERS +
+                RollTablesContract.NumberOfPowersTable.COLUMN_POWERS_INITIAL +
+                ", " + RollTablesContract.NumberOfPowersTable.COLUMN_POWERS_MAX +
+                ", " + RollTablesContract.NumberOfPowersTable.COLUMN_TALENTS_INITIAL +
+                ", " + RollTablesContract.NumberOfPowersTable.COLUMN_TALENTS_MAX +
+                ", " + RollTablesContract.NumberOfPowersTable.COLUMN_CONTACTS_INITIAL +
+                ", " + RollTablesContract.NumberOfPowersTable.COLUMN_CONTACTS_MAX +
+                " FROM " + RollTablesContract.NumberOfPowersTable.TABLE_NUMBER_OF_POWERS +
                 " WHERE " + RollTablesContract.COLUMN_LOW_ROLL + " <= " + roll + " AND " +
                 RollTablesContract.COLUMN_HIGH_ROLL + " >= " + roll;
 
@@ -132,12 +134,12 @@ public class DatabaseAccess {
         }
 
         cursor.moveToFirst();
-        map.put(RollTablesContract.COLUMN_POWERS_INITIAL, cursor.getInt(cursor.getColumnIndex(RollTablesContract.COLUMN_POWERS_INITIAL)));
-        map.put(RollTablesContract.COLUMN_POWERS_MAX, cursor.getInt(cursor.getColumnIndex(RollTablesContract.COLUMN_POWERS_MAX)));
-        map.put(RollTablesContract.COLUMN_TALENTS_INITIAL, cursor.getInt(cursor.getColumnIndex(RollTablesContract.COLUMN_TALENTS_INITIAL)));
-        map.put(RollTablesContract.COLUMN_TALENTS_MAX, cursor.getInt(cursor.getColumnIndex(RollTablesContract.COLUMN_TALENTS_MAX)));
-        map.put(RollTablesContract.COLUMN_CONTACTS_INITIAL, cursor.getInt(cursor.getColumnIndex(RollTablesContract.COLUMN_CONTACTS_INITIAL)));
-        map.put(RollTablesContract.COLUMN_CONTACTS_MAX, cursor.getInt(cursor.getColumnIndex(RollTablesContract.COLUMN_CONTACTS_MAX)));
+        map.put(RollTablesContract.NumberOfPowersTable.COLUMN_POWERS_INITIAL, cursor.getInt(cursor.getColumnIndex(RollTablesContract.NumberOfPowersTable.COLUMN_POWERS_INITIAL)));
+        map.put(RollTablesContract.NumberOfPowersTable.COLUMN_POWERS_MAX, cursor.getInt(cursor.getColumnIndex(RollTablesContract.NumberOfPowersTable.COLUMN_POWERS_MAX)));
+        map.put(RollTablesContract.NumberOfPowersTable.COLUMN_TALENTS_INITIAL, cursor.getInt(cursor.getColumnIndex(RollTablesContract.NumberOfPowersTable.COLUMN_TALENTS_INITIAL)));
+        map.put(RollTablesContract.NumberOfPowersTable.COLUMN_TALENTS_MAX, cursor.getInt(cursor.getColumnIndex(RollTablesContract.NumberOfPowersTable.COLUMN_TALENTS_MAX)));
+        map.put(RollTablesContract.NumberOfPowersTable.COLUMN_CONTACTS_INITIAL, cursor.getInt(cursor.getColumnIndex(RollTablesContract.NumberOfPowersTable.COLUMN_CONTACTS_INITIAL)));
+        map.put(RollTablesContract.NumberOfPowersTable.COLUMN_CONTACTS_MAX, cursor.getInt(cursor.getColumnIndex(RollTablesContract.NumberOfPowersTable.COLUMN_CONTACTS_MAX)));
         cursor.close();
         return map;
     }
@@ -244,17 +246,17 @@ public class DatabaseAccess {
             int roll = DieRoller.roll(100);
 
 
-            String query = "SELECT " + RollTablesContract.COLUMN_RANK_NAME +
-                    ", " + RollTablesContract.COLUMN_INITIAL_RANK_NUMBER +
-                    " FROM " + RollTablesContract.TABLE_RANDOM_RANKS +
+            String query = "SELECT " + RollTablesContract.RandomRanksTable.COLUMN_RANK_NAME +
+                    ", " + RollTablesContract.RandomRanksTable.COLUMN_INITIAL_RANK_NUMBER +
+                    " FROM " + RollTablesContract.RandomRanksTable.TABLE_RANDOM_RANKS +
                     " WHERE " + lowRollColumn + " <= " + roll +
                     " AND " + highRollColumn + " >= " + roll;
             Log.d("HERO", "ABILITY ROLL: " + query);
 
             Cursor cursor = database.rawQuery(query,null);
             cursor.moveToFirst();
-            initialRankName = cursor.getString(cursor.getColumnIndex(RollTablesContract.COLUMN_RANK_NAME));
-            initialRankNumber = cursor.getInt(cursor.getColumnIndex(RollTablesContract.COLUMN_INITIAL_RANK_NUMBER));
+            initialRankName = cursor.getString(cursor.getColumnIndex(RollTablesContract.RandomRanksTable.COLUMN_RANK_NAME));
+            initialRankNumber = cursor.getInt(cursor.getColumnIndex(RollTablesContract.RandomRanksTable.COLUMN_INITIAL_RANK_NUMBER));
             cursor.close();
             abilityMap.put(abilityEnum, new Ability(abilityName, initialRankName,initialRankNumber));
         }

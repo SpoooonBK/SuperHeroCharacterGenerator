@@ -8,11 +8,39 @@ public final class RollTablesContract {
     public RollTablesContract() {
     }
 
-    //tables
-    public static final String TABLE_NUMBER_OF_POWERS = "number_of_powers";
-    public static final String TABLE_RANDOM_RANKS ="random_ranks";
-    public static final String TABLE_ORIGIN = "origin";
-    public static final String TABLE_PHYSICAL_FORM = "physicalForm";
+    public static abstract class PhysicalFormTable {
+
+        public static final String TABLE_PHYSICAL_FORM = "physicalForm";
+        public static final String COLUMN_FORM = "form";
+        public static final String COLUMN_SUBFORM = "subForm";
+        public static final String COLUMN_FORM_ID = "formID";
+        public static final String COLUMN_RANDOM_RANKS_ROLL_COL = "random_ranks_roll_column";
+    }
+
+    public static abstract class NumberOfPowersTable {
+
+        //tables
+        public static final String TABLE_NUMBER_OF_POWERS = "number_of_powers";
+        public static final String COLUMN_POWERS_INITIAL = "powersInitialAmount";
+        public static final String COLUMN_POWERS_MAX = "powersMaxAmount";
+        public static final String COLUMN_TALENTS_INITIAL = "talentsInitialAmount";
+        public static final String COLUMN_TALENTS_MAX = "talentsMaxAmount";
+        public static final String COLUMN_CONTACTS_INITIAL = "contactsInitialAmount";
+        public static final String COLUMN_CONTACTS_MAX = "contactsMaxAmount";
+    }
+
+    public static abstract class RandomRanksTable {
+
+        public static final String TABLE_RANDOM_RANKS ="random_ranks";
+        public static final String COLUMN_RANK_NAME = "rank_name";
+        public static final String COLUMN_INITIAL_RANK_NUMBER = "initial_rank_number";
+        public static final String TABLE_ORIGIN = "origin";
+    }
+
+    public static abstract class OriginTable {
+
+    }
+
     public static final String TABLE_POWER_CLASS = "power_class";
     public static final String TABLE_POWER_DEFENSIVE = "power_defensive";
     public static final String TABLE_POWER_DETECTION = "power_detection";
@@ -45,19 +73,9 @@ public final class RollTablesContract {
     public static final String COLUMN_POWER_CLASS_CODE = "powerClassCode";
     public static final String COLUMN_POWER_CLASS = "powerClass";
     public static final String COLUMN_POWER_TABLE_NAME = "powerTableName";
-    public static final String COLUMN_POWERS_INITIAL = "powersInitialAmount";
-    public static final String COLUMN_POWERS_MAX = "powersMaxAmount";
-    public static final String COLUMN_TALENTS_INITIAL = "talentsInitialAmount";
-    public static final String COLUMN_TALENTS_MAX = "talentsMaxAmount";
-    public static final String COLUMN_CONTACTS_INITIAL = "contactsInitialAmount";
-    public static final String COLUMN_CONTACTS_MAX = "contactsMaxAmount";
-    public static final String COLUMN_FORM = "form";
-    public static final String COLUMN_SUBFORM = "subForm";
+
     public static final String COLUMN_WEAKNESS_DURATION = "weakness_duration";
     public static final String COLUMN_WEAKNESS_EFFECT = "weakness_effect";
     public static final String COLUMN_WEAKNESS_STIMULUS = "weakness_stimulus";
-    public static final String COLUMN_RANDOM_RANKS_ROLL_COL = "random_ranks_roll_column";
-    public static final String COLUMN_RANK_NAME = "rank_name";
-    public static final String COLUMN_INITIAL_RANK_NUMBER = "initial_rank_number";
 
 }

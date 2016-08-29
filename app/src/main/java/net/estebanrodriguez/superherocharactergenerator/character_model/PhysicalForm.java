@@ -11,7 +11,7 @@ public class PhysicalForm {
     private String mFormdescription;
     private int mRandomRanksRollColumn;
 
-    public PhysicalForm(String formType, String subFormType, int randomRanksRollColumn) {
+    public PhysicalForm(String formType, String subFormType, int randomRanksRollColumn, int formID) {
         mFormType = formType;
         mSubFormType = subFormType;
         mRandomRanksRollColumn = randomRanksRollColumn;

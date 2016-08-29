@@ -38,16 +38,16 @@ public class PoweredCharacter extends Character {
 
 
     public void setAmounts(Map<String, Integer> amounts){
-        setInitialAmountofPowers(amounts.get(RollTablesContract.COLUMN_POWERS_INITIAL));
-        setMaxAmountofPowers(amounts.get(RollTablesContract.COLUMN_POWERS_MAX));
+        setInitialAmountofPowers(amounts.get(RollTablesContract.NumberOfPowersTable.COLUMN_POWERS_INITIAL));
+        setMaxAmountofPowers(amounts.get(RollTablesContract.NumberOfPowersTable.COLUMN_POWERS_MAX));
         setCurrentAmountofPowers(mInitialAmountofPowers);
 
-        setInitialAmountofTalents(amounts.get(RollTablesContract.COLUMN_TALENTS_INITIAL));
-        setMaxAmountofTalents(amounts.get(RollTablesContract.COLUMN_TALENTS_MAX));
+        setInitialAmountofTalents(amounts.get(RollTablesContract.NumberOfPowersTable.COLUMN_TALENTS_INITIAL));
+        setMaxAmountofTalents(amounts.get(RollTablesContract.NumberOfPowersTable.COLUMN_TALENTS_MAX));
         setCurrentAmountOfTalents(mInitialAmountofTalents);
 
-        setInitialAmountofContacts(amounts.get(RollTablesContract.COLUMN_CONTACTS_INITIAL));
-        setMaxAmountofContacts(amounts.get(RollTablesContract.COLUMN_CONTACTS_MAX));
+        setInitialAmountofContacts(amounts.get(RollTablesContract.NumberOfPowersTable.COLUMN_CONTACTS_INITIAL));
+        setMaxAmountofContacts(amounts.get(RollTablesContract.NumberOfPowersTable.COLUMN_CONTACTS_MAX));
         setCurrentAmountofContacts(mInitialAmountofContacts);
     }
 
