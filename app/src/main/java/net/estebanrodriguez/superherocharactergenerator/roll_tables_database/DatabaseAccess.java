@@ -100,14 +100,14 @@ public class DatabaseAccess {
 
     public Origin rollOrigin(int roll) {
         String query = "SELECT " +
-                RollTablesContract.COLUMN_ORIGIN +
-                " FROM " + RollTablesContract.RandomRanksTable.TABLE_ORIGIN +
+                RollTablesContract.OriginTable.COLUMN_ORIGIN +
+                " FROM " + RollTablesContract.OriginTable.TABLE_ORIGIN +
                 " WHERE " + RollTablesContract.COLUMN_LOW_ROLL + " <= " + roll + " AND " +
                 RollTablesContract.COLUMN_HIGH_ROLL + " >= " + roll;
 
         Cursor cursor = database.rawQuery(query, null);
         cursor.moveToFirst();
-        String origin = cursor.getString(cursor.getColumnIndex(RollTablesContract.COLUMN_ORIGIN));
+        String origin = cursor.getString(cursor.getColumnIndex(RollTablesContract.OriginTable.COLUMN_ORIGIN));
         cursor.close();
         return new Origin(origin);
     }
@@ -148,9 +148,9 @@ public class DatabaseAccess {
 
         Map<String, String> map = new HashMap<>();
         String query = "SELECT " +
-                RollTablesContract.COLUMN_POWER_CLASS +
-                ", " + RollTablesContract.COLUMN_POWER_TABLE_NAME +
-                " FROM " + RollTablesContract.TABLE_POWER_CLASS +
+                RollTablesContract.PowerClassTable.COLUMN_POWER_CLASS +
+                ", " + RollTablesContract.PowerClassTable.COLUMN_POWER_TABLE_NAME +
+                " FROM " + RollTablesContract.PowerClassTable.TABLE_POWER_CLASS +
                 " WHERE " + RollTablesContract.COLUMN_LOW_ROLL + " <= " + roll + " AND " +
                 RollTablesContract.COLUMN_HIGH_ROLL + " >= " + roll;
 
@@ -163,8 +163,8 @@ public class DatabaseAccess {
 
         cursor.moveToFirst();
 
-        map.put(RollTablesContract.COLUMN_POWER_CLASS,cursor.getString(cursor.getColumnIndex(RollTablesContract.COLUMN_POWER_CLASS)));
-        map.put(RollTablesContract.COLUMN_POWER_TABLE_NAME, cursor.getString(cursor.getColumnIndex(RollTablesContract.COLUMN_POWER_TABLE_NAME)));
+        map.put(RollTablesContract.PowerClassTable.COLUMN_POWER_CLASS,cursor.getString(cursor.getColumnIndex(RollTablesContract.PowerClassTable.COLUMN_POWER_CLASS)));
+        map.put(RollTablesContract.PowerClassTable.COLUMN_POWER_TABLE_NAME, cursor.getString(cursor.getColumnIndex(RollTablesContract.PowerClassTable.COLUMN_POWER_TABLE_NAME)));
         cursor.close();
         return map;
     }
@@ -203,13 +203,13 @@ public class DatabaseAccess {
 
     public Power rollPower(int roll, Map<String, String> map) {
 
-        String powerClass = map.get(RollTablesContract.COLUMN_POWER_CLASS);
-        String powerTableName = map.get(RollTablesContract.COLUMN_POWER_TABLE_NAME);
+        String powerClass = map.get(RollTablesContract.PowerClassTable.COLUMN_POWER_CLASS);
+        String powerTableName = map.get(RollTablesContract.PowerClassTable.COLUMN_POWER_TABLE_NAME);
 
         String query = "SELECT " +
-                RollTablesContract.COLUMN_POWER_ID +
-                ", " + RollTablesContract.COLUMN_POWER_CODE +
-                ", " + RollTablesContract.COLUMN_POWER +
+                RollTablesContract.GenericPowerTables.COLUMN_POWER_ID +
+                ", " + RollTablesContract.GenericPowerTables.COLUMN_POWER_CODE +
+                ", " + RollTablesContract.GenericPowerTables.COLUMN_POWER +
                 " FROM " + powerTableName +
                 " WHERE " + RollTablesContract.COLUMN_LOW_ROLL + " <= " + roll + " AND " +
                 RollTablesContract.COLUMN_HIGH_ROLL + " >= " + roll;
@@ -223,9 +223,9 @@ public class DatabaseAccess {
             Log.d("HERO","rollPower: "+ s );
         }
         cursor.moveToFirst();
-        String powerName = cursor.getString(cursor.getColumnIndex(RollTablesContract.COLUMN_POWER));
-        String code = cursor.getString(cursor.getColumnIndex(RollTablesContract.COLUMN_POWER_CODE));
-        int powerid = cursor.getInt(cursor.getColumnIndex(RollTablesContract.COLUMN_POWER_ID));
+        String powerName = cursor.getString(cursor.getColumnIndex(RollTablesContract.GenericPowerTables.COLUMN_POWER));
+        String code = cursor.getString(cursor.getColumnIndex(RollTablesContract.GenericPowerTables.COLUMN_POWER_CODE));
+        int powerid = cursor.getInt(cursor.getColumnIndex(RollTablesContract.GenericPowerTables.COLUMN_POWER_ID));
         String powerCode = code + powerid;
         cursor.close();
 
@@ -277,8 +277,8 @@ public class DatabaseAccess {
     public String rollWeaknessEffect(){
 
         int roll = DieRoller.roll(100);
-        String query = "SELECT " + RollTablesContract.COLUMN_WEAKNESS_EFFECT +
-                " FROM " + RollTablesContract.TABLE_WEAKNESS_EFFECT +
+        String query = "SELECT " + RollTablesContract.WeaknessEffectTable.COLUMN_WEAKNESS_EFFECT +
+                " FROM " + RollTablesContract.WeaknessEffectTable.TABLE_WEAKNESS_EFFECT +
                 " WHERE " + RollTablesContract.COLUMN_LOW_ROLL + " <= " + roll + " AND " +
                 RollTablesContract.COLUMN_HIGH_ROLL + " >= " + roll;
 
@@ -286,14 +286,14 @@ public class DatabaseAccess {
 
         Cursor cursor = database.rawQuery(query, null);
         cursor.moveToFirst();
-        String effect = cursor.getString(cursor.getColumnIndex(RollTablesContract.COLUMN_WEAKNESS_EFFECT));
+        String effect = cursor.getString(cursor.getColumnIndex(RollTablesContract.WeaknessEffectTable.COLUMN_WEAKNESS_EFFECT));
         return effect;
     }
 
     public String rollWeaknessDuration(){
         int roll = DieRoller.roll(100);
-        String query = "SELECT " + RollTablesContract.COLUMN_WEAKNESS_DURATION +
-                " FROM " + RollTablesContract.TABLE_WEAKNESS_DURATION +
+        String query = "SELECT " + RollTablesContract.WeaknessDurationTable.COLUMN_WEAKNESS_DURATION +
+                " FROM " + RollTablesContract.WeaknessDurationTable.TABLE_WEAKNESS_DURATION +
                 " WHERE " + RollTablesContract.COLUMN_LOW_ROLL + " <= " + roll + " AND " +
                 RollTablesContract.COLUMN_HIGH_ROLL + " >= " + roll;
 
@@ -301,15 +301,15 @@ public class DatabaseAccess {
 
         Cursor cursor = database.rawQuery(query, null);
         cursor.moveToFirst();
-        String duration = cursor.getString(cursor.getColumnIndex(RollTablesContract.COLUMN_WEAKNESS_DURATION));
+        String duration = cursor.getString(cursor.getColumnIndex(RollTablesContract.WeaknessDurationTable.COLUMN_WEAKNESS_DURATION));
         return duration;
     }
 
     public String rollWeaknessStimulus(){
         int roll = DieRoller.roll(100);
 
-        String query = "SELECT " + RollTablesContract.COLUMN_WEAKNESS_STIMULUS +
-                " FROM " + RollTablesContract.TABLE_WEAKNESS_STIMULUS +
+        String query = "SELECT " + RollTablesContract.WeaknessStimulusTable.COLUMN_WEAKNESS_STIMULUS +
+                " FROM " + RollTablesContract.WeaknessStimulusTable.TABLE_WEAKNESS_STIMULUS +
                 " WHERE " + RollTablesContract.COLUMN_LOW_ROLL + " <= " + roll + " AND " +
                 RollTablesContract.COLUMN_HIGH_ROLL + " >= " + roll;
 
@@ -317,7 +317,7 @@ public class DatabaseAccess {
 
         Cursor cursor = database.rawQuery(query, null);
         cursor.moveToFirst();
-        String stimulus = cursor.getString(cursor.getColumnIndex(RollTablesContract.COLUMN_WEAKNESS_STIMULUS));
+        String stimulus = cursor.getString(cursor.getColumnIndex(RollTablesContract.WeaknessStimulusTable.COLUMN_WEAKNESS_STIMULUS));
         return stimulus;
     }
 
